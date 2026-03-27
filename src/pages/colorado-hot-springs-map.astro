@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Colorado Hot Springs Map"
+  description="Interactive map of all hot springs in Colorado with conditions, access info, and trip planning."
+>
+  <div class="map-page">
+    <aside class="map-sidebar">
+      <div class="sidebar-header">
+        <h1>Hot Springs Map</h1>
+        <p>Click a spring to see details</p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="search"
+          id="spring-search"
+          placeholder="Search springs..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div id="springs-list" class="springs-list">
+        <div class="loading-placeholder">Loading springs...</div>
+      </div>
+    </aside>
+
+    <div class="map-container">
+      <div id="map"></div>
+
+      <!-- Spring detail panel -->
+      <div id="spring-detail" class="spring-detail hidden">
+        <button id="detail-close" class="detail-close" aria-label="Close">✕</button>
+        <div id="detail-content"></div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<script>
+// ─── Map initialisation ────────────────────────────────────────────────────────
+async function initMap() {
+  // Dynamically import Leaflet (avoids SSR issues)
+  const L = (await import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js')).default ?? await import('https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.esm.js');
+
+  const map = L.map('map').setView([39.0, -106.0], 7);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // List of Colorado hot springs
+  const springs = [
+    { slug: 'strawberry-hot-springs-colorado', name: 'Strawberry Hot Springs', lat: 40.7440, lng: -106.7400, temp_f: 102, fee: 20, access_type: 'Drive-up', season: 'Year-round' },
+    { slug: 'iron-mountain-hot-springs', name: 'Iron Mountain Hot Springs', lat: 38.5300, lng: -106.3200, temp_f: 110, fee: 12, access_type: 'Hike-in', season: 'Year-round' },
+    { slug: 'mountain-princeton', name: 'Mount Princeton Hot Springs', lat: 38.7300, lng: -106.2200, temp_f: 105, fee: 18, access_type: 'Resort', season: 'Year-round' },
+    { slug: 'glade-park', name: 'Glenwood Hot Springs', lat: 39.5500, lng: -107.3300, temp_f: 104, fee: 20, access_type: 'Resort', season: 'Year-round' },
+    { slug: 'hartsel-hot-springs', name: 'Hartsel Hot Springs', lat: 38.7800, lng: -105.7900, temp_f: 103, fee: 8, access_type: 'Drive-up', season: 'Seasonal' },
+    { slug: 'poncha-hot-springs', name: 'Poncha Hot Springs', lat: 38.5000, lng: -105.9000, temp_f: 108, fee: 15, access_type: 'Resort', season: 'Year-round' },
+    { slug: 'wiesbaden-hot-springs', name: 'Wiesbaden Hot Springs', lat: 37.8600, lng: -107.3300, temp_f: 112, fee: 25, access_type: 'Resort', season: 'Year-round' },
+    { slug: 'ouray-hot-springs', name: 'Ouray Hot Springs', lat: 38.0200, lng: -107.6700, temp_f: 96, fee: 18, access_type: 'Drive-up', season: 'Year-round' },
+  ];
+
+  const markers = [];
+
+  springs.forEach(spring => {
+    const marker = L.marker([spring.lat, spring.lng]).addTo(map);
+    marker.bindPopup(`
+      <strong>${spring.name}</strong><br>
+      ${spring.temp_f}°F • $${spring.fee}<br>
+      ${spring.access_type} • ${spring.season}<br>
+      <a href="/blog/${spring.slug}">Read Guide →</a>
+    `);
+    markers.push(marker);
+
+    // Add to sidebar list
+    const item = document.createElement('div');
+    item.className = 'spring-item';
+    item.innerHTML = `<strong>${spring.name}</strong><br>${spring.temp_f}°F • $${spring.fee}`;
+    item.addEventListener('click', () => {
+      map.setView([spring.lat, spring.lng], 10);
+      marker.openPopup();
+    });
+    document.getElementById('springs-list').appendChild(item);
+  });
+
+  // Search functionality
+  document.getElementById('spring-search').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.spring-item').forEach(item => {
+      const matches = item.textContent.toLowerCase().includes(term);
+      item.style.display = matches ? 'block' : 'none';
+    });
+  });
+
+  // Detail panel functionality
+  document.getElementById('detail-close').addEventListener('click', () => {
+    document.getElementById('spring-detail').classList.add('hidden');
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initMap);
+</script>
+
+<style>
+  .map-page {
+    display: flex;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+  }
+
+  .map-sidebar {
+    width: 300px;
+    overflow-y: auto;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sidebar-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-header p {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .search-box {
+    padding: 1rem 1.5rem;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+
+  .springs-list {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .spring-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .spring-item:hover {
+    background: var(--color-bg);
+  }
+
+  .spring-item strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .spring-item br {
+    display: block;
+  }
+
+  .map-container {
+    flex: 1;
+    position: relative;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+
+  .spring-detail {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .spring-detail.hidden {
+    display: none;
+  }
+
+  .detail-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .map-page {
+      flex-direction: column;
+    }
+
+    .map-sidebar {
+      width: 100%;
+      height: 300px;
+    }
+  }
+</style>
