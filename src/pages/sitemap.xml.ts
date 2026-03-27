@@ -4,12 +4,12 @@ export const prerender = true;
 
 export async function GET() {
   const posts = await getCollection('blog');
-  const site = 'https://www.washingtonhotsprings.com';
+  const site = 'https://soakcolorados.pages.dev';
 
   const staticPages = [
     { url: '/', priority: '1.0', changefreq: 'weekly' },
     { url: '/blog', priority: '0.9', changefreq: 'daily' },
-    { url: '/washington-hot-springs-map', priority: '0.9', changefreq: 'weekly' },
+    { url: '/colorado-hot-springs-map', priority: '0.9', changefreq: 'weekly' },
     { url: '/trip-planner', priority: '0.8', changefreq: 'monthly' },
   ];
 

@@ -17,5 +17,5 @@ export default defineConfig({
     keystatic(),
   ],
   trailingSlash: 'never',
-  site: 'https://www.washingtonhotsprings.com',
+  site: 'https://www.soakcolorado.com',
 });

@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Discover Washington State hot springs — guides, maps, trip planning, and live conditions.',
+  description = 'Discover Colorado hot springs — guides, maps, trip planning, and soaking in the Rockies.',
   heroImage,
   heroImageAlt = '',
   publishedDate,
@@ -19,9 +19,9 @@ const {
   canonicalUrl,
 } = Astro.props;
 
-const siteTitle = 'Washington Hot Springs';
+const siteTitle = 'Soak Colorado';
 const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
-const siteUrl = 'https://www.washingtonhotsprings.com';
+const siteUrl = 'https://www.soakcolorado.com';
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).href;
 const ogImage = heroImage ?? `${siteUrl}/og-default.jpg`;
 ---
@@ -68,10 +68,10 @@ const ogImage = heroImage ?? `${siteUrl}/og-default.jpg`;
   <body>
     <header class="site-header">
       <div class="container">
-        <a href="/" class="site-logo">Washington Hot Springs</a>
+        <a href="/" class="site-logo">Soak Colorado</a>
         <nav class="site-nav">
           <a href="/blog">Blog</a>
-          <a href="/washington-hot-springs-map">Map</a>
+          <a href="/colorado-hot-springs-map">Map</a>
           <a href="/trip-planner">Trip Planner</a>
         </nav>
       </div>
@@ -83,7 +83,7 @@ const ogImage = heroImage ?? `${siteUrl}/og-default.jpg`;
 
     <footer class="site-footer">
       <div class="container">
-        <p>&copy; {new Date().getFullYear()} Washington Hot Springs. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Soak Colorado. All rights reserved.</p>
       </div>
     </footer>
   </body>

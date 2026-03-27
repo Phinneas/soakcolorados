@@ -7,7 +7,7 @@ const googleApiKey = import.meta.env.PUBLIC_GOOGLE_API_KEY ?? '';
 
 <BaseLayout
   title="Hot Springs Trip Planner"
-  description="Plan a multi-stop Washington hot springs road trip with optimized routing, driving directions, and nearby amenities."
+  description="Plan a multi-stop Colorado hot springs road trip with optimized routing, driving directions, and nearby amenities."
 >
   <div class="planner-page">
 
@@ -93,7 +93,7 @@ const googleApiKey = import.meta.env.PUBLIC_GOOGLE_API_KEY ?? '';
 <script define:vars={{ mapboxToken, googleApiKey }}>
 // ─── Config ───────────────────────────────────────────────────────────────────
 const CFG = {
-  mapCenter: [47.5, -120.7],
+  mapCenter: [39.0, -106.0], // Colorado
   mapZoom: 7,
   mapboxToken,
   googleApiKey,
@@ -443,7 +443,7 @@ out 15;`;
 
 // ─── Save / restore trip ──────────────────────────────────────────────────────
 function saveTrip() {
-  const key = 'wa-hot-springs-trip';
+  const key = 'co-hot-springs-trip';
   localStorage.setItem(key, JSON.stringify({
     start: startLocation,
     slugs: selectedSprings.map(s => s.slug),
@@ -452,7 +452,7 @@ function saveTrip() {
 
 function restoreSavedTrip() {
   try {
-    const saved = JSON.parse(localStorage.getItem('wa-hot-springs-trip') ?? 'null');
+    const saved = JSON.parse(localStorage.getItem('co-hot-springs-trip') ?? 'null');
     if (!saved) return;
     if (saved.start) {
       startLocation = saved.start;
@@ -519,7 +519,7 @@ function setupListeners() {
     renderSpringsList();
     document.getElementById('route-stats').classList.add('hidden');
     document.getElementById('poi-section').classList.add('hidden');
-    localStorage.removeItem('wa-hot-springs-trip');
+    localStorage.removeItem('co-hot-springs-trip');
   });
 
   document.getElementById('save-trip-btn').addEventListener('click', () => { saveTrip(); alert('Trip saved!'); });
