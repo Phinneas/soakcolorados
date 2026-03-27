@@ -72,7 +72,7 @@ async function initMap() {
   // ─── Load springs ────────────────────────────────────────────────────────────
   let springs = [];
   try {
-    const res = await fetch('/api/springs.json');
+    const res = await fetch('/springs.json');
     springs = await res.json();
   } catch (e) {
     console.error('Failed to load springs:', e);
