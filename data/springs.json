@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Sol Duc",
+    "slug": "sol-duc",
+    "temp_f": 78,
+    "fee": 18,
+    "gps": "47.9689° N, 123.8631° W",
+    "description": "Olympic Hot Springs in Olympic National Park",
+    "access_type": "drive-up",
+    "hours": "9 AM - 8 PM",
+    "season": "year-round",
+    "clothing": "required",
+    "cell_coverage": "Verizon: 1 bar, AT&T: none",
+    "road_condition": "Paved, narrow last 2 miles",
+    "parking": "Lot fills by 11 AM weekends",
+    "fee_notes": "Cash only, no ATM nearby",
+    "best_time": "Weekday mornings before 10 AM",
+    "avoid_when": "Holiday weekends",
+    "insider_tips": "The third pool from the entrance is the warmest and least crowded. Bring water shoes as the rocks can be slippery. If you're here during heavy rain, check the river level - it can flood the lower pools.",
+    "nearby_gems": "Hike to Sol Duc Falls (1.6 miles), Appleton Pass trail for wildflowers in July, Fairy Lake for photography",
+    "last_verified": "2024-01-15",
+    "maintenance_day": "Closed first Tuesday of each month",
+    "alerts": "No current alerts - all pools open"
+  }
+]

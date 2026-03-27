@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block Keystatic admin from indexing
+Disallow: /keystatic/
+
+Sitemap: https://www.washingtonhotsprings.com/sitemap.xml

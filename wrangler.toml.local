@@ -1,0 +1,15 @@
+name = "washingtonhotsprings"
+compatibility_date = "2024-12-01"
+
+# D1 binding is configured in Cloudflare Pages dashboard:
+# Settings → Functions → D1 database bindings → variable name: DB
+#
+# For local dev, add after creating the database:
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "wa-hot-springs"
+# database_id = "YOUR_ID_HERE"
+#
+# wrangler d1 create wa-hot-springs
+# wrangler d1 execute wa-hot-springs --file=db/schema.sql
+# wrangler d1 execute wa-hot-springs --file=db/seed.sql

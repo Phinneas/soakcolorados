@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ .Site.Title }}</title>
+    <meta name="description" content="Complete directory of natural hot springs in Washington State">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .hero { text-align: center; margin: 40px 0; }
+        .cta { background: #f0f8ff; padding: 20px; border-radius: 8px; text-align: center; }
+        .cta a { background: #007acc; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>{{ .Site.Title }}</h1>
+        <p>Discover the best natural hot springs in Washington State</p>
+    </div>
+    
+    {{ .Content }}
+    
+    <div class="cta">
+        <h2>Explore Hot Springs</h2>
+        <p>Browse our complete directory of Washington's natural hot springs with detailed information, maps, and GPS coordinates.</p>
+        <a href="/springs/">View All Hot Springs</a>
+    </div>
+</body>
+</html>

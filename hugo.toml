@@ -1,0 +1,8 @@
+baseURL = 'https://directory.washingtonhotsprings.com/'
+languageCode = 'en-us'
+title = 'Washington Hot Springs Directory'
+
+enableData = true
+
+[outputs]
+  section = ["HTML", "JSON"]

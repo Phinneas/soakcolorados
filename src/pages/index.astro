@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const recentPosts = (await getCollection('blog'))
+  .sort((a, b) => new Date(b.data.publishedDate).valueOf() - new Date(a.data.publishedDate).valueOf())
+  .slice(0, 3);
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric',
+  });
+}
+---
+
+<BaseLayout
+  title="Washington Hot Springs"
+  description="Discover the best hot springs in Washington State. Interactive map, trip planner, live conditions, and in-depth guides."
+>
+  <section class="hero">
+    <div class="container">
+      <h1>Washington Hot Springs</h1>
+      <p class="hero-sub">Your complete guide to hot springs across Washington State — interactive map, trip planner, live conditions, and in-depth guides.</p>
+      <div class="hero-actions">
+        <a href="/washington-hot-springs-map" class="btn btn-primary">Explore the Map</a>
+        <a href="/blog" class="btn btn-secondary">Read the Guides</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <div class="feature-grid">
+        <a href="/washington-hot-springs-map" class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <h3>Interactive Map</h3>
+          <p>Find hot springs near you with real-time conditions and access info.</p>
+        </a>
+        <a href="/trip-planner" class="feature-card">
+          <div class="feature-icon">🧭</div>
+          <h3>Trip Planner</h3>
+          <p>Plan multi-stop routes with driving directions and nearby amenities.</p>
+        </a>
+        <a href="/blog" class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3>Guides &amp; Reviews</h3>
+          <p>In-depth guides to every hot spring in Washington State.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {recentPosts.length > 0 && (
+    <section class="recent-posts">
+      <div class="container">
+        <div class="section-header">
+          <h2>Latest Guides</h2>
+          <a href="/blog">View all →</a>
+        </div>
+        <div class="post-row">
+          {recentPosts.map((post) => (
+            <article class="post-card-sm">
+              {post.data.heroImage && (
+                <a href={`/blog/${post.slug}`} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? post.data.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+              )}
+              <div class="card-body">
+                <time datetime={post.data.publishedDate}>{formatDate(post.data.publishedDate)}</time>
+                <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
+                {post.data.description && <p>{post.data.description}</p>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  .hero-sub { font-size: clamp(1rem, 2vw, 1.25rem); opacity: 0.85; max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.6; }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 0.875rem 2rem; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; transition: all 0.15s ease; }
+  .btn-primary { background: white; color: #1b4332; }
+  .btn-primary:hover { background: #f0fdf4; transform: translateY(-1px); }
+  .btn-secondary { border: 2px solid rgba(255,255,255,0.6); color: white; }
+  .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+  .features { padding: 4rem 0; }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .feature-card {
+    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px;
+    padding: 2rem 1.5rem; text-align: center; color: var(--color-text);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); color: var(--color-text); }
+  .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .feature-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; }
+
+  .recent-posts { padding: 0 0 2rem; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
+  .section-header h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .section-header a { font-size: 0.9rem; font-weight: 500; color: var(--color-accent); }
+  .post-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .post-card-sm { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; overflow: hidden; }
+  .post-card-sm img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .post-card-sm .card-body { padding: 1rem 1.25rem 1.25rem; }
+  .post-card-sm time { font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 0.4rem; }
+  .post-card-sm h3 { font-size: 1rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; }
+  .post-card-sm h3 a { color: var(--color-text); }
+  .post-card-sm h3 a:hover { color: var(--color-accent); }
+  .post-card-sm p { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

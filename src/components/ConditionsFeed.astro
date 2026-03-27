@@ -1,0 +1,241 @@
+---
+interface Props {
+  springSlug: string;
+}
+const { springSlug } = Astro.props;
+---
+
+<div class="conditions-feed" data-spring-slug={springSlug}>
+  <div class="feed-header">
+    <h3>Live Conditions</h3>
+    <span class="last-updated">Last report: <span id={`last-updated-${springSlug}`}>—</span></span>
+  </div>
+
+  <div id={`reports-${springSlug}`} class="reports-container">
+    <div class="skeleton-wrap">
+      <div class="skeleton"></div>
+      <div class="skeleton short"></div>
+    </div>
+  </div>
+
+  <button class="report-btn" id={`report-btn-${springSlug}`}>
+    + Report conditions
+  </button>
+
+  <!-- Inline report form (hidden until button clicked) -->
+  <form
+    id={`report-form-${springSlug}`}
+    class="report-form hidden"
+    data-spring-slug={springSlug}
+  >
+    <div class="form-grid">
+      <label>
+        <span>Visit date</span>
+        <input type="date" name="visit_date" />
+      </label>
+      <label>
+        <span>Water temp (°F)</span>
+        <input type="number" name="water_temp" min="50" max="150" />
+      </label>
+      <label>
+        <span>Crowd level</span>
+        <select name="crowd_level">
+          <option value="">— Select —</option>
+          <option value="1">1 – Quiet</option>
+          <option value="2">2 – Light</option>
+          <option value="3">3 – Moderate</option>
+          <option value="4">4 – Busy</option>
+          <option value="5">5 – Packed</option>
+        </select>
+      </label>
+      <label>
+        <span>Status</span>
+        <select name="is_open">
+          <option value="true">Open</option>
+          <option value="false">Closed</option>
+        </select>
+      </label>
+    </div>
+    <label class="full-width">
+      <span>Notes</span>
+      <textarea name="notes" rows="2" placeholder="Road conditions, pool status, anything useful..."></textarea>
+    </label>
+    <div class="form-actions">
+      <button type="submit" class="submit-btn">Submit report</button>
+      <button type="button" class="cancel-btn">Cancel</button>
+    </div>
+    <p id={`form-msg-${springSlug}`} class="form-msg"></p>
+  </form>
+</div>
+
+<script>
+document.querySelectorAll('.conditions-feed').forEach(feed => {
+  const slug = feed.dataset.springSlug;
+  const reportsEl = document.getElementById(`reports-${slug}`);
+  const lastUpdatedEl = document.getElementById(`last-updated-${slug}`);
+  const reportBtn = document.getElementById(`report-btn-${slug}`);
+  const reportForm = document.getElementById(`report-form-${slug}`);
+  const formMsg = document.getElementById(`form-msg-${slug}`);
+
+  // ─── Load reports ─────────────────────────────────────────────────────────
+  async function loadReports() {
+    try {
+      const res = await fetch(`/api/conditions/${slug}.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const reports = await res.json();
+
+      if (!reports.length) {
+        reportsEl.innerHTML = `
+          <div class="empty-state">
+            <p>No reports yet — be the first!</p>
+          </div>`;
+        return;
+      }
+
+      lastUpdatedEl.textContent = timeAgo(reports[0].created_at);
+      reportsEl.innerHTML = reports.map(r => reportCard(r)).join('');
+    } catch {
+      reportsEl.innerHTML = `
+        <div class="error-state">
+          <p>⚠️ Conditions temporarily unavailable</p>
+          <button onclick="this.closest('.conditions-feed').querySelector('.retry-btn').click()">Retry</button>
+        </div>`;
+    }
+  }
+
+  // ─── Report card ──────────────────────────────────────────────────────────
+  function reportCard(r) {
+    const crowdLabels = ['', 'Quiet', 'Light', 'Moderate', 'Busy', 'Packed'];
+    return `
+      <div class="report-card">
+        <div class="report-top">
+          ${r.crowd_level ? `<span class="crowd-badge crowd-${r.crowd_level}">${crowdLabels[r.crowd_level]}</span>` : ''}
+          <span class="status-badge ${r.is_open ? 'open' : 'closed'}">${r.is_open ? 'Open' : 'Closed'}</span>
+          <span class="report-time">${timeAgo(r.created_at)}</span>
+        </div>
+        ${(r.water_temp || r.visit_date) ? `
+          <div class="report-meta">
+            ${r.water_temp ? `<span>🌡 ${r.water_temp}°F</span>` : ''}
+            ${r.visit_date ? `<span>📅 ${new Date(r.visit_date).toLocaleDateString()}</span>` : ''}
+          </div>` : ''}
+        ${r.notes ? `<p class="report-notes">${r.notes}</p>` : ''}
+      </div>`;
+  }
+
+  // ─── Time ago ─────────────────────────────────────────────────────────────
+  function timeAgo(dateStr) {
+    if (!dateStr) return 'Unknown';
+    const diff = Date.now() - new Date(dateStr).getTime();
+    if (diff < 60000) return 'Just now';
+    if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+    if (diff < 86400000) return `${Math.floor(diff / 3600000)}h ago`;
+    return `${Math.floor(diff / 86400000)}d ago`;
+  }
+
+  // ─── Report form ──────────────────────────────────────────────────────────
+  reportBtn?.addEventListener('click', () => {
+    reportForm?.classList.toggle('hidden');
+    reportBtn.classList.toggle('hidden');
+  });
+
+  reportForm?.querySelector('.cancel-btn')?.addEventListener('click', () => {
+    reportForm.classList.add('hidden');
+    reportBtn.classList.remove('hidden');
+    formMsg.textContent = '';
+  });
+
+  reportForm?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const body = {
+      visit_date: fd.get('visit_date') || undefined,
+      water_temp: fd.get('water_temp') ? Number(fd.get('water_temp')) : undefined,
+      crowd_level: fd.get('crowd_level') ? Number(fd.get('crowd_level')) : undefined,
+      is_open: fd.get('is_open') !== 'false',
+      notes: fd.get('notes') || undefined,
+    };
+
+    try {
+      const res = await fetch(`/api/conditions/${slug}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      formMsg.textContent = '✅ Report submitted — thank you!';
+      formMsg.style.color = 'var(--color-accent)';
+      e.target.reset();
+      setTimeout(() => {
+        reportForm.classList.add('hidden');
+        reportBtn.classList.remove('hidden');
+        formMsg.textContent = '';
+        loadReports();
+      }, 1500);
+    } catch {
+      formMsg.textContent = '⚠️ Failed to submit — please try again.';
+      formMsg.style.color = '#b45309';
+    }
+  });
+
+  loadReports();
+});
+</script>
+
+<style>
+  .conditions-feed { margin-top: 2rem; }
+  .feed-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .feed-header h3 { font-size: 1.125rem; font-weight: 700; }
+  .last-updated { font-size: 0.8rem; color: var(--color-text-muted); }
+
+  .skeleton-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+  .skeleton { height: 72px; background: var(--color-border); border-radius: 8px; animation: pulse 1.4s ease infinite; }
+  .skeleton.short { height: 44px; width: 60%; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.45} }
+
+  .empty-state, .error-state { padding: 1.25rem; text-align: center; font-size: 0.9rem; color: var(--color-text-muted); background: var(--color-bg); border-radius: 8px; }
+
+  .report-card {
+    border: 1px solid var(--color-border); border-radius: 10px;
+    padding: 0.875rem 1rem; margin-bottom: 0.75rem; background: var(--color-surface);
+  }
+  .report-top { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .crowd-badge {
+    padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;
+    background: #fef3c7; color: #92400e;
+  }
+  .crowd-badge.crowd-1, .crowd-badge.crowd-2 { background: #dcfce7; color: #166534; }
+  .crowd-badge.crowd-4, .crowd-badge.crowd-5 { background: #fee2e2; color: #991b1b; }
+
+  .status-badge { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .status-badge.open { background: #dcfce7; color: #166534; }
+  .status-badge.closed { background: #fee2e2; color: #991b1b; }
+  .report-time { font-size: 0.75rem; color: var(--color-text-muted); margin-left: auto; }
+  .report-meta { display: flex; gap: 1rem; font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 0.35rem; }
+  .report-notes { font-size: 0.875rem; color: var(--color-text); line-height: 1.5; margin: 0; }
+
+  .report-btn {
+    width: 100%; padding: 0.6rem; border: 1px dashed var(--color-border);
+    border-radius: 8px; background: var(--color-bg); color: var(--color-accent);
+    font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  }
+  .report-btn:hover { background: #f0fdf4; border-color: var(--color-accent); }
+  .report-btn.hidden { display: none; }
+
+  .report-form { border: 1px solid var(--color-border); border-radius: 10px; padding: 1rem; margin-top: 0.75rem; }
+  .report-form.hidden { display: none; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .full-width { display: block; margin-bottom: 0.75rem; }
+  .report-form label span { display: block; font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 0.25rem; }
+  .report-form input, .report-form select, .report-form textarea {
+    width: 100%; padding: 0.4rem 0.5rem; border: 1px solid var(--color-border);
+    border-radius: 5px; font-size: 0.875rem; background: var(--color-bg);
+  }
+  .form-actions { display: flex; gap: 0.5rem; }
+  .submit-btn { background: var(--color-accent); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+  .submit-btn:hover { background: var(--color-accent-light); }
+  .cancel-btn { background: none; border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.875rem; cursor: pointer; }
+  .form-msg { font-size: 0.8125rem; margin-top: 0.5rem; }
+</style>
