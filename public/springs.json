@@ -16,15 +16,14 @@
     "road_condition": "Dirt road, 4WD recommended in winter",
     "description": "Five natural soaking pools with mountain views near Steamboat Springs. One of Colorado's most popular hot springs.",
     "best_time": "Weekday mornings or after 8pm",
-    "insider_tips": "The uppermost pool is hottest. Weeknight visits are much less crowded.",
-    "nearby_gems": "Fish Creek Falls (5 miles), Steamboat Ski Resort"
+    "insider_tips": "The uppermost pool is hottest. Weeknight visits are much less crowded."
   },
   {
     "id": "2",
     "slug": "iron-mountain-hot-springs",
     "name": "Iron Mountain Hot Springs",
-    "lat": 39.5450,
-    "lng": -107.3280,
+    "lat": 39.5552611,
+    "lng": -107.3362620,
     "temp_f": 104,
     "fee": 30,
     "access_type": "Resort",
@@ -42,8 +41,8 @@
     "id": "3",
     "slug": "iron-mountain-hot-springs-geology",
     "name": "Glenwood Hot Springs Pool",
-    "lat": 39.5488,
-    "lng": -107.3252,
+    "lat": 39.5495867,
+    "lng": -107.3227319,
     "temp_f": 93,
     "fee": 30,
     "access_type": "Resort",
@@ -53,7 +52,7 @@
     "parking": "Free lot",
     "cell_coverage": "Good",
     "road_condition": "Paved",
-    "description": "World's largest mineral hot springs pool. Two pools — large lap pool and hot therapy pool — plus waterslides and spa.",
+    "description": "World's largest mineral hot springs pool with two pools, waterslides, and a spa in Glenwood Springs.",
     "best_time": "Early morning before crowds"
   },
   {
@@ -72,15 +71,15 @@
     "cell_coverage": "Limited",
     "road_condition": "Paved",
     "description": "Historic hotel in Ouray with underground vapor cave, outdoor soaking pool, and private tubs. Adults only.",
-    "insider_tips": "The underground vapor cave is a unique experience not found elsewhere in Colorado.",
+    "insider_tips": "The underground vapor cave is unique — not found elsewhere in Colorado.",
     "nearby_gems": "Ouray Hot Springs Pool, Box Canyon Falls"
   },
   {
     "id": "5",
     "slug": "valley-view-hot-springs-colorado",
     "name": "Valley View Hot Springs",
-    "lat": 38.0900,
-    "lng": -105.8200,
+    "lat": 38.1923412,
+    "lng": -105.8150849,
     "temp_f": 96,
     "fee": 20,
     "access_type": "Drive-up",
@@ -131,14 +130,14 @@
     "road_condition": "Paved to trailhead",
     "description": "Free backcountry hot springs on the West Fork of the San Juan River. 3.5-mile hike each way through beautiful canyon.",
     "best_time": "Spring and fall for lower crowds",
-    "insider_tips": "River crossings can be high in spring snowmelt — check conditions. Multiple pools at different temperatures."
+    "insider_tips": "River crossings can be high in spring snowmelt. Multiple pools at different temperatures."
   },
   {
     "id": "8",
     "slug": "cottonwood-hot-springs",
     "name": "Cottonwood Hot Springs",
-    "lat": 38.8050,
-    "lng": -106.1980,
+    "lat": 38.8126378,
+    "lng": -106.2223561,
     "temp_f": 100,
     "fee": 22,
     "access_type": "Resort",
@@ -149,15 +148,14 @@
     "cell_coverage": "Limited",
     "road_condition": "Paved",
     "description": "Clothing-optional resort near Buena Vista with multiple natural mineral pools and lodging.",
-    "insider_tips": "Multiple pools at different temperatures. Weekday afternoons are quiet.",
-    "nearby_gems": "Mount Princeton Hot Springs (15 min), Arkansas River rafting"
+    "insider_tips": "Multiple pools at different temperatures. Weekday afternoons are quiet."
   },
   {
     "id": "9",
     "slug": "penny-hot-springs-colorado",
     "name": "Penny Hot Springs",
-    "lat": 39.3850,
-    "lng": -107.1650,
+    "lat": 39.2318699,
+    "lng": -107.2272759,
     "temp_f": 110,
     "fee": 0,
     "access_type": "Drive-up",
@@ -176,8 +174,8 @@
     "id": "10",
     "slug": "south-canyon-hot-springs",
     "name": "South Canyon Hot Springs",
-    "lat": 39.5900,
-    "lng": -107.3800,
+    "lat": 39.5537572,
+    "lng": -107.4108185,
     "temp_f": 110,
     "fee": 0,
     "access_type": "Hike-in",
@@ -187,9 +185,9 @@
     "parking": "Small pullout off I-70 frontage road",
     "cell_coverage": "Minimal",
     "road_condition": "Short rough trail",
-    "description": "Free natural hot springs near Glenwood Springs reached by a short hike along a creek. Wild feel close to town.",
+    "description": "Free natural hot springs near Glenwood Springs reached by a short hike along a creek.",
     "best_time": "Weekday mornings",
-    "insider_tips": "Easy to find once you know it — look for cars near milepost 113 on the frontage road."
+    "insider_tips": "Look for cars parked near the frontage road west of Glenwood Springs."
   },
   {
     "id": "11",
@@ -226,7 +224,7 @@
     "road_condition": "Paved",
     "description": "Three outdoor mineral soaking pools in the San Luis Valley with 360-degree mountain views. Yoga and lodging available.",
     "best_time": "Morning for mountain views, night for stargazing",
-    "insider_tips": "The coldest pool is perfect for contrast therapy. Night soaking under the stars is incredible."
+    "insider_tips": "Night soaking under the stars is incredible here."
   },
   {
     "id": "13",
@@ -243,7 +241,7 @@
     "parking": "Resort parking",
     "cell_coverage": "None",
     "road_condition": "Dirt road, 4WD required in winter",
-    "description": "Ultra-luxury ghost town resort in the San Juan Mountains with private hot springs. Restored 1800s cabins. Exclusive and remote.",
+    "description": "Ultra-luxury ghost town resort in the San Juan Mountains with private hot springs. Restored 1800s cabins.",
     "insider_tips": "Overnight stays only — no day visits. One of the most remote and beautiful settings in Colorado."
   },
   {
@@ -261,15 +259,15 @@
     "parking": "Free on site",
     "cell_coverage": "Minimal",
     "road_condition": "Paved",
-    "description": "Three outdoor mineral pools on a working ranch near Redstone with views of Avalanche Creek and Crystal River Valley.",
+    "description": "Three outdoor mineral pools on a working ranch near Redstone with Crystal River Valley views.",
     "insider_tips": "Cabins and glamping available. Quieter and more relaxed than Glenwood."
   },
   {
     "id": "15",
     "slug": "radium-hot-springs-colorado",
     "name": "Radium Hot Springs",
-    "lat": 40.0500,
-    "lng": -106.5800,
+    "lat": 39.9598393,
+    "lng": -106.5406479,
     "temp_f": 105,
     "fee": 0,
     "access_type": "Hike-in",
@@ -279,7 +277,7 @@
     "parking": "Small BLM pullout near Radium",
     "cell_coverage": "None",
     "road_condition": "Short walk from road",
-    "description": "Wild backcountry hot springs along the Colorado River near Kremmling. Popular with kayakers and river runners.",
+    "description": "Wild backcountry hot springs along the Colorado River near Kremmling. Popular with kayakers.",
     "best_time": "Fall when river levels drop",
     "insider_tips": "Accessible via raft or kayak during high water — one of the best river hot spring combos in the state."
   },
@@ -298,7 +296,7 @@
     "parking": "Cement Creek TH near Crested Butte",
     "cell_coverage": "None",
     "road_condition": "Dirt road to trailhead",
-    "description": "Remote free hot springs near Crested Butte, requiring a moderate hike through alpine scenery.",
+    "description": "Remote free hot springs near Crested Butte requiring a moderate hike through alpine scenery.",
     "best_time": "Late summer",
     "insider_tips": "Often missed by tourists — a local favorite near Crested Butte."
   },
@@ -317,10 +315,9 @@
     "parking": "Chalk Creek Rd pullout near Nathrop",
     "cell_coverage": "None",
     "road_condition": "Short walk from road",
-    "description": "Free natural hot springs near Mount Princeton. Very hot at source — mix with creek water in pools you build yourself.",
-    "best_time": "Spring and fall",
+    "description": "Free natural hot springs near Mount Princeton. Very hot at source — mix with creek water to build your own pools.",
     "alerts": "Water at source can be scalding — always test before entering",
-    "insider_tips": "Build your own pools by digging into the bank. Bring a shovel."
+    "insider_tips": "Bring a shovel to build pools in the creek bank."
   },
   {
     "id": "18",
@@ -338,8 +335,7 @@
     "cell_coverage": "None",
     "road_condition": "High clearance 4WD required",
     "description": "Backcountry hot springs near Gothic in the Elk Mountains. Remote and spectacular alpine setting.",
-    "best_time": "July through September",
-    "insider_tips": "Road to Gothic requires 4WD. Combine with a visit to the Rocky Mountain Biological Laboratory."
+    "best_time": "July through September"
   },
   {
     "id": "19",
@@ -356,7 +352,7 @@
     "parking": "Free near Box Canyon Lodge",
     "cell_coverage": "Good",
     "road_condition": "Paved",
-    "description": "Rooftop hot tubs at Box Canyon Lodge in Ouray with stunning canyon views. Small and intimate.",
+    "description": "Rooftop hot tubs at Box Canyon Lodge in Ouray with stunning canyon views.",
     "insider_tips": "Day passes available but book ahead — fills quickly."
   },
   {
@@ -374,7 +370,7 @@
     "parking": "Roadside near Antero Reservoir",
     "cell_coverage": "Minimal",
     "road_condition": "Dirt road",
-    "description": "Warm soaking pools on BLM land near South Park. More warm than hot, but free and scenic."
+    "description": "Warm soaking pools on BLM land near South Park. Free and scenic with wide open views."
   },
   {
     "id": "21",
@@ -388,12 +384,11 @@
     "season": "Year-round",
     "hours": "Dawn to dusk",
     "clothing": "Clothing optional",
-    "parking": "Small pullout off CR 129 near Steamboat Lake",
+    "parking": "Small pullout off CR 129 north of Steamboat",
     "cell_coverage": "None",
     "road_condition": "Dirt road",
     "description": "Remote natural hot springs north of Steamboat Springs. Simple pools with a wild, undeveloped feel.",
-    "best_time": "Weekdays",
-    "insider_tips": "Local secret north of Steamboat. Look for the pullout near mile marker 12 on CR 129."
+    "best_time": "Weekdays"
   },
   {
     "id": "22",
@@ -410,9 +405,8 @@
     "parking": "Steamboat Lake State Park area",
     "cell_coverage": "None",
     "road_condition": "Short hike required",
-    "description": "Natural hot springs near Steamboat Lake in a remote, forested setting. Undeveloped and peaceful.",
-    "best_time": "Fall foliage season",
-    "insider_tips": "Combine with a visit to Steamboat Lake State Park."
+    "description": "Natural hot springs near Steamboat Lake in a remote, forested setting.",
+    "best_time": "Fall foliage season"
   },
   {
     "id": "23",
@@ -429,9 +423,8 @@
     "parking": "Paid lot",
     "cell_coverage": "Good",
     "road_condition": "Paved",
-    "description": "Historic spring-fed swimming pool in Eldorado Canyon near Boulder. Cool mineral water — perfect for summer swimming.",
-    "best_time": "Weekday mornings",
-    "insider_tips": "More of a cool mineral pool than hot spring, but great for families near Boulder. Bring cash."
+    "description": "Historic spring-fed pool in Eldorado Canyon near Boulder. Cool mineral water — perfect for summer swimming.",
+    "insider_tips": "More cool mineral pool than hot spring. Great for families near Boulder. Bring cash."
   },
   {
     "id": "24",
@@ -448,9 +441,8 @@
     "parking": "Trailhead off Forest Road near Yampa",
     "cell_coverage": "None",
     "road_condition": "Dirt road to trailhead",
-    "description": "Secluded backcountry hot springs in the Flat Tops Wilderness near Steamboat Springs. Rewarding hike through pristine wilderness.",
-    "best_time": "Late summer",
-    "insider_tips": "One of the more remote springs in Colorado. Plan for a full day trip."
+    "description": "Secluded backcountry hot springs in the Flat Tops Wilderness near Steamboat Springs.",
+    "best_time": "Late summer"
   },
   {
     "id": "25",
@@ -492,8 +484,8 @@
     "id": "27",
     "slug": "hartsel-hot-springs-colorado-guide",
     "name": "Hartsel Hot Springs",
-    "lat": 38.7800,
-    "lng": -105.7900,
+    "lat": 39.0168979,
+    "lng": -105.7926620,
     "temp_f": 103,
     "fee": 8,
     "access_type": "Drive-up",
@@ -503,16 +495,15 @@
     "parking": "On site",
     "cell_coverage": "Minimal",
     "road_condition": "Paved",
-    "description": "Small soaking operation in South Park near fishing and wide-open plains. Simple and affordable.",
-    "alerts": "Operating status changes frequently — verify before visiting",
-    "insider_tips": "One of the most affordable soaking options on the Front Range side of the Rockies."
+    "description": "Small soaking operation in South Park. Simple and affordable.",
+    "alerts": "Operating status changes frequently — verify before visiting"
   },
   {
     "id": "28",
     "slug": "rico-hot-springs-colorado-guide",
     "name": "Rico Hot Springs",
-    "lat": 37.6900,
-    "lng": -108.0200,
+    "lat": 37.7013,
+    "lng": -108.0308,
     "temp_f": 100,
     "fee": 0,
     "access_type": "Hike-in",
@@ -530,8 +521,8 @@
     "id": "29",
     "slug": "hot-springs-near-buena-vista",
     "name": "Mount Princeton Hot Springs",
-    "lat": 38.7300,
-    "lng": -106.2200,
+    "lat": 38.7344183,
+    "lng": -106.1629442,
     "temp_f": 132,
     "fee": 28,
     "access_type": "Resort",
@@ -541,16 +532,15 @@
     "parking": "Free lot",
     "cell_coverage": "Limited",
     "road_condition": "Paved",
-    "description": "Popular resort near Buena Vista with multiple outdoor pools fed by naturally superheated springs. Creekside soaking pools are free to access from the road.",
-    "best_time": "Weekday afternoons",
-    "insider_tips": "The free riverside pools along Chalk Creek Rd are just upstream — arrive early to snag a spot."
+    "description": "Popular resort near Buena Vista with multiple outdoor pools fed by naturally superheated springs.",
+    "insider_tips": "Free riverside pools along Chalk Creek Rd are just upstream — arrive early."
   },
   {
     "id": "30",
     "slug": "hot-springs-near-denver",
-    "name": "Idaho Springs Soda Springs",
-    "lat": 39.7430,
-    "lng": -105.5130,
+    "name": "Indian Hot Springs",
+    "lat": 39.7390825,
+    "lng": -105.5126631,
     "temp_f": 98,
     "fee": 15,
     "access_type": "Drive-up",
@@ -560,8 +550,118 @@
     "parking": "Free on site",
     "cell_coverage": "Good",
     "road_condition": "Paved",
-    "description": "Historic mineral springs soaking facility just 45 minutes west of Denver off I-70. Easy mountain getaway.",
+    "description": "Historic mineral springs just 45 minutes west of Denver off I-70. Underground caves and outdoor pools.",
     "best_time": "Weekday evenings",
-    "insider_tips": "One of the closest hot springs to Denver. Great for a quick after-work soak."
+    "insider_tips": "One of the closest hot springs to Denver. The underground cave pools are a unique experience."
+  },
+  {
+    "id": "31",
+    "slug": "hot-sulphur-springs",
+    "name": "Hot Sulphur Springs Resort",
+    "lat": 40.0747939,
+    "lng": -106.1115516,
+    "temp_f": 110,
+    "fee": 22,
+    "access_type": "Resort",
+    "season": "Year-round",
+    "hours": "8am–10pm daily",
+    "clothing": "Required",
+    "parking": "Free on site",
+    "cell_coverage": "Limited",
+    "road_condition": "Paved",
+    "description": "21 pools of varying temperatures on the Colorado River in Grand County. Historic resort, family-friendly.",
+    "insider_tips": "One of the most underrated resorts in Colorado — rarely as crowded as Glenwood."
+  },
+  {
+    "id": "32",
+    "slug": "waunita-hot-springs",
+    "name": "Waunita Hot Springs Ranch",
+    "lat": 38.5141613,
+    "lng": -106.5083629,
+    "temp_f": 175,
+    "fee": 0,
+    "access_type": "Resort",
+    "season": "Summer",
+    "hours": "Guests only",
+    "clothing": "Required",
+    "parking": "Resort parking",
+    "cell_coverage": "None",
+    "road_condition": "Paved",
+    "description": "Guest dude ranch near Gunnison with naturally hot spring-fed swimming pool. Incredible mountain setting.",
+    "insider_tips": "Pool access for overnight guests only. Source spring is among the hottest in Colorado at 175°F."
+  },
+  {
+    "id": "33",
+    "slug": "cebolla-hot-springs",
+    "name": "Cebolla Hot Springs",
+    "lat": 38.2738353,
+    "lng": -107.0986506,
+    "temp_f": 100,
+    "fee": 0,
+    "access_type": "Drive-up",
+    "season": "Year-round",
+    "hours": "Dawn to dusk",
+    "clothing": "Clothing optional",
+    "parking": "BLM pullout off Hwy 149",
+    "cell_coverage": "None",
+    "road_condition": "Short walk from road",
+    "description": "Free undeveloped BLM hot springs near Lake City on the Lake Fork of the Gunnison River.",
+    "best_time": "Spring and fall",
+    "insider_tips": "Three pools along the river. Primitive and uncrowded."
+  },
+  {
+    "id": "34",
+    "slug": "ouray-hot-springs",
+    "name": "Ouray Hot Springs Pool",
+    "lat": 38.0295010,
+    "lng": -107.6725926,
+    "temp_f": 96,
+    "fee": 18,
+    "access_type": "Drive-up",
+    "season": "Year-round",
+    "hours": "10am–9pm daily",
+    "clothing": "Required",
+    "parking": "Free lot",
+    "cell_coverage": "Good",
+    "road_condition": "Paved",
+    "description": "Municipal hot springs pool in downtown Ouray — the 'Switzerland of America.' Stunning mountain views from every lane.",
+    "insider_tips": "Great value compared to private resorts. The lazy river is fed by natural hot springs."
+  },
+  {
+    "id": "35",
+    "slug": "pinkerton-hot-springs",
+    "name": "Pinkerton Hot Springs",
+    "lat": 37.4511580,
+    "lng": -107.8051900,
+    "temp_f": 100,
+    "fee": 0,
+    "access_type": "Hike-in",
+    "season": "Year-round",
+    "hours": "Dawn to dusk",
+    "clothing": "Clothing optional",
+    "parking": "Pullout off Hwy 550 south of Durango",
+    "cell_coverage": "None",
+    "road_condition": "Short hike required",
+    "description": "Wild undeveloped hot springs along the Animas River south of Durango. Primitive pools with train views.",
+    "insider_tips": "The Durango & Silverton Narrow Gauge Railroad passes nearby — watch for the steam train."
+  },
+  {
+    "id": "36",
+    "slug": "pagosa-hot-springs",
+    "name": "Pagosa Hot Springs (The Springs Resort)",
+    "lat": 37.2644127,
+    "lng": -107.0105795,
+    "temp_f": 114,
+    "fee": 39,
+    "access_type": "Resort",
+    "season": "Year-round",
+    "hours": "7am–midnight daily",
+    "clothing": "Required",
+    "parking": "Free lot",
+    "cell_coverage": "Good",
+    "road_condition": "Paved",
+    "description": "Largest natural hot springs in the world by depth. 25 riverside pools at The Springs Resort in Pagosa Springs.",
+    "best_time": "Weekday mornings",
+    "insider_tips": "The Mother Spring is the deepest known hot spring in the world. Book online for discounts."
   }
 ]
