@@ -58,14 +58,14 @@ module.exports = {
         border: "#A1553D", // Coconut
         darkmode: {
           txt: {
-            p: "#D5BA9C", // Dark Vanilla — headers
-            s: "#D5BA9C", // Dark Vanilla — body text (light on dark bg)
-            light: "#C4A882", // Medium vanilla — muted
+            p: "#5E5137", // Olive Drab Camo — headers
+            s: "#5E5137", // Olive Drab Camo — body text (always dark)
+            light: "#4a4030", // Darker olive — muted
           },
           bg: {
-            p: "#5E5137", // Olive Drab Camo — main background
-            s: "#6B5D48", // Lighter olive — glass elements (lighter for contrast)
-            t: "#5E5137", // Olive Drab Camo — glass contrast
+            p: "#c5a882", // Slightly darker vanilla — main background
+            s: "#d0c4ae", // Lighter vanilla — glass elements
+            t: "#c5a882", // Slightly darker vanilla — glass contrast
           },
           border: "#A1553D", // Coconut
         },
