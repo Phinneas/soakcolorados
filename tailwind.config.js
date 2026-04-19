@@ -42,29 +42,32 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Hot Springs palette
+        // Dark Vanilla #D5BA9C | Dirt #A1704B | Olive Drab Camo #5E5137 | Jasper Orange #DF804D | Coconut #A1553D
+        accent: "#DF804D", // Jasper Orange — buttons, highlights, map markers
         txt: {
-          p: "#000",
-          s: "#222",
-          light: "#444",
+          p: "#5E5137", // Olive Drab Camo — headers
+          s: "#5E5137", // Olive Drab Camo — body text (dark for readability)
+          light: "#8B7355", // Warm medium brown — muted/selected
         },
         bg: {
-          p: "#fff",
-          s: "#ddd",
-          t: "#ddd",
+          p: "#D5BA9C", // Dark Vanilla — main background
+          s: "#E8D5C0", // Lighter vanilla — glass elements (lighter than bg-p for contrast)
+          t: "#D5BA9C", // Dark Vanilla — glass contrast
         },
-        border: "#ddd",
+        border: "#A1553D", // Coconut
         darkmode: {
           txt: {
-            p: "#fff",
-            s: "#ddd",
-            light: "#bbb",
+            p: "#D5BA9C", // Dark Vanilla — headers
+            s: "#D5BA9C", // Dark Vanilla — body text (light on dark bg)
+            light: "#C4A882", // Medium vanilla — muted
           },
           bg: {
-            p: "#222",
-            s: "#444",
-            t: "#444",
+            p: "#5E5137", // Olive Drab Camo — main background
+            s: "#6B5D48", // Lighter olive — glass elements (lighter for contrast)
+            t: "#5E5137", // Olive Drab Camo — glass contrast
           },
-          border: "#444",
+          border: "#A1553D", // Coconut
         },
       },
       minHeight: {

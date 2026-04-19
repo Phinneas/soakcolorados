@@ -1,9 +1,7 @@
 ---
-image: "@assets/astrogon-star.svg"
-imageAlt: Astrogon logo
-title: Astrogon
-content: A rapidly-customizable template for a blog, documentation, and more.
+title: Soak Colorado
+content: Your guide to Colorado's best hot springs — from natural wilderness pools to luxury resort soaks.
 button:
-  label: See the Code
-  link: https://github.com/astrogon/astrogon
+  label: Explore the Map
+  link: /colorado-hot-springs-map
 ---

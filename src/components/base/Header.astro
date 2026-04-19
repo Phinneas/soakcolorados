@@ -12,36 +12,12 @@ const menu = [
     url: "/",
   },
   {
-    name: "About",
-    url: "/about",
-  },
-  {
-    name: "Docs",
-    url: "/docs",
+    name: "Map",
+    url: "/colorado-hot-springs-map",
   },
   {
     name: "Blog",
     url: "/blog",
-  },
-  {
-    name: "Recipes",
-    url: "/recipes",
-  },
-  {
-    name: "Poetry",
-    url: "/poetry",
-  },
-  {
-    name: "Index Cards",
-    url: "/index-cards",
-  },
-  {
-    name: "Authors",
-    url: "/authors",
-  },
-  {
-    name: "Portfolio",
-    url: "/portfolio",
   },
 ];
 ---
@@ -78,6 +54,7 @@ const menu = [
           <li class="">
             <a
               href={item.url}
+              data-astro-reload={item.url === "/colorado-hot-springs-map" ? true : undefined}
               class={`block p-2 font-secondary font-semibold text-txt-p transition dark:text-darkmode-txt-p lg:px-2 lg:py-3 ${
                 (pathname === `${item.url}/` || pathname === item.url) &&
                 "active"

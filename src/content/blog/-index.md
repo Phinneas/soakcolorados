@@ -1,4 +1,4 @@
 ---
-title: Blog Posts
-description: The blog of Jane and John Doe
+title: Blog
+description: Your guide to Colorado's best hot springs — visitor tips, directions, and soaking advice.
 ---
