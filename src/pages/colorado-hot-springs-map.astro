@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '@components/base/BaseLayout.astro';
+const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN || '';
 ---
 
 <BaseLayout
   title="Colorado Hot Springs Map"
   description="Interactive map of all hot springs in Colorado with conditions, access info, and trip planning."
 >
-  <div class="map-page">
+  <div class="map-page" data-mapbox-token={mapboxToken}>
     <aside class="map-sidebar">
       <div class="sidebar-header">
         <h1>Hot Springs Map</h1>
@@ -173,7 +174,7 @@ async function initMap() {
     return;
   }
   // Get Mapbox token from environment variables
-  const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN || 'pk.YOUR_MAPBOX_TOKEN';
+  const mapboxToken = document.querySelector('.map-page')?.dataset.mapboxToken || '';
 
   if (!mapboxToken || mapboxToken === 'pk.YOUR_MAPBOX_TOKEN') {
     console.error('Mapbox token not found. Please set PUBLIC_MAPBOX_ACCESS_TOKEN environment variable.');
