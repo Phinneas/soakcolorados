@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '@components/base/BaseLayout.astro';
-const mapboxToken = import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN || '';
+import { mapboxAccessToken } from '@/config/map';
 ---
 
 <BaseLayout
   title="Colorado Hot Springs Map"
   description="Interactive map of all hot springs in Colorado with conditions, access info, and trip planning."
 >
-  <div class="map-page" data-mapbox-token={mapboxToken}>
+  <div class="map-page" data-mapbox-token={mapboxAccessToken}>
     <aside class="map-sidebar">
       <div class="sidebar-header">
         <h1>Hot Springs Map</h1>
