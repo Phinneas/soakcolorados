@@ -6,8 +6,6 @@ import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
-import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
@@ -29,10 +27,9 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, {
       test: "Table of contents"
-    }], remarkMath],
-    rehypePlugins: [[rehypeKatex, {}]],
+    }]],
     shikiConfig: {
-      themes: { // https://shiki.style/themes
+      themes: {
         light: "light-plus",
         dark: "dark-plus",
       } 
