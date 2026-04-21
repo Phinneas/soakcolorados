@@ -10,10 +10,10 @@ let h3 = h4 * font_scale;
 let h2 = h3 * font_scale;
 let h1 = h2 * font_scale;
 
-let fontPrimary = "serif";
-let fontPrimaryType = "serif";
-let fontSecondary = "open sans";
-let fontSecondaryType = "sans-serif";
+let fontPrimary = "National Park";
+let fontPrimaryType = "sans-serif";
+let fontSecondary = "Fraunces";
+let fontSecondaryType = "serif";
 
 fontPrimary = fontPrimary
   .replace(/\+/g, " ")
@@ -91,6 +91,8 @@ module.exports = {
       fontFamily: {
         primary: [fontPrimary, fontPrimaryType],
         secondary: [fontSecondary, fontSecondaryType],
+        display: [fontPrimary, fontPrimaryType],
+        body: [fontSecondary, fontSecondaryType],
       },
       spacing: {
         "1/2": "50%",
