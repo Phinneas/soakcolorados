@@ -1,131 +1,22 @@
-/* Fonts */
+/* Fonts — National Park (display) + Fraunces (body) */
 
-/* Fraunces - Imported from Google Fonts */
+/* Fraunces via Google Fonts (400, 600, 700 with SOFT + opsz variable axes) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap');
 
-/* National Park Regular */
+/* National Park Regular — self-hosted */
 @font-face {
-  font-display: block;
+  font-display: swap;
   font-family: "National Park";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/national-park/national-park-regular.woff2") format("woff2");
+  src: url("/fonts/national-park/NationalPark-Regular.woff2") format("woff2");
 }
 
-/* National Park Bold */
+/* National Park Bold — self-hosted */
 @font-face {
-  font-display: block;
+  font-display: swap;
   font-family: "National Park";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/national-park/national-park-bold.woff2") format("woff2");
-}
-
-/* Legacy font declarations (kept for backward compatibility) */
-
-/* Cormorant 500 */
-@font-face {
-  font-display: block;
-  font-family: "Cormorant";
-  font-style: normal;
-  font-weight: 500;
-  src: url("/fonts/cormorant/cormorant-500.woff2") format("woff2");
-}
-
-/* Cormorant 700 */
-@font-face {
-  font-display: block;
-  font-family: "Cormorant";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/cormorant/cormorant-700.woff2") format("woff2");
-}
-
-/* Inter Regular */
-@font-face {
-  font-display: block;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/inter/Inter-Regular.woff2") format("woff2");
-}
-
-/* Inter Bold */
-@font-face {
-  font-display: block;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/fonts/inter/Inter-Bold.woff2") format("woff2");
-}
-
-/* Inter Display Regular */
-@font-face {
-  font-display: block;
-  font-family: "InterDisplay";
-  font-style: normal;
-  font-weight: normal;
-  src: url("/fonts/inter-display/InterDisplay-Regular.woff2") format("woff2");
-}
-
-/* Inter Display Bold */
-@font-face {
-  font-display: block;
-  font-family: "InterDisplay";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/fonts/inter-display/InterDisplay-Bold.woff2") format("woff2");
-}
-
-/* Noto Sans 400 */
-@font-face {
-  font-display: block;
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/noto-sans/noto-sans-400.woff2") format("woff2");
-}
-
-/* Noto Sans 600 */
-@font-face {
-  font-display: block;
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 600;
-  src: url("/fonts/noto-sans/noto-sans-600.woff2") format("woff2");
-}
-
-/* Noto Serif 500 */
-@font-face {
-  font-display: block;
-  font-family: "Noto Serif";
-  font-style: normal;
-  font-weight: 500;
-  src: url("/fonts/noto-serif/noto-serif-500.woff2") format("woff2");
-}
-
-/* Noto Serif 700 */
-@font-face {
-  font-display: block;
-  font-family: "Noto Serif";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/noto-serif/noto-serif-700.woff2") format("woff2");
-}
-
-/* Open Sans 400 */
-@font-face {
-  font-display: block;
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/open-sans/open-sans-400.woff2") format("woff2");
-}
-
-/* Open Sans 600 */
-@font-face {
-  font-display: block;
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 600;
-  src: url("/fonts/open-sans/open-sans-600.woff2") format("woff2");
+  src: url("/fonts/national-park/NationalPark-Bold.woff2") format("woff2");
 }
