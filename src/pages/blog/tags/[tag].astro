@@ -1,24 +1,14 @@
 ---
-import type { BlogEntry } from "@/types";
-import { getEntries } from "@lib/contentParser";
-import { getTaxa } from "@lib/taxonomyParser";
+export const prerender = false;
+import { getWollyBlogEntries } from "@lib/wolly";
 import taxonomyFilter from "@lib/taxonomyFilter";
 import TaxonLayout from "@components/blog/TaxonLayout.astro";
 
-export async function getStaticPaths() {
-  const taxa = await getTaxa("blog", "tags");
-  const paths = taxa.map((taxon) => ({
-    params: {
-      tag: taxon,
-    },
-    props: { taxon },
-  }));
-  return paths;
-}
+const { tag } = Astro.params;
+if (!tag) return Astro.redirect("/blog");
 
-const { taxon } = Astro.props;
-const entries = await getEntries("blog") as BlogEntry[];
-const filteredEntries: BlogEntry[] = taxonomyFilter(entries, "tags", taxon!);
+const entries = await getWollyBlogEntries();
+const filteredEntries = taxonomyFilter(entries, "tags", tag);
 ---
 
-<TaxonLayout taxon={taxon} entries={filteredEntries} />
+<TaxonLayout taxon={tag} entries={filteredEntries} />

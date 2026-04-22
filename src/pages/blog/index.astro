@@ -1,19 +1,22 @@
 ---
 import CollectionLayout from "@components/blog/CollectionLayout.astro";
-import { getTaxaMultiset, getTaxa } from "@lib/taxonomyParser";
-import { getEntries, getIndex } from "@lib/contentParser";
-import { sortByDate } from "@lib/sortFunctions";
+import { getWollyBlogEntries } from "@lib/wolly";
 import type { BlogEntry } from "@/types";
 
-const { slug } = Astro.params;
-const currentPageIndex = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
+const currentPageIndex = 1;
 
-const entryIndex = (await getIndex("blog")) as BlogEntry;
-const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
+const entries = await getWollyBlogEntries();
 
-const allCategories = await getTaxaMultiset("blog", "categories");
-const categories = await getTaxa("blog", "categories");
-const tags = await getTaxa("blog", "tags");
+const entryIndex = {
+  id: "-index",
+  collection: "blog",
+  data: { title: "Blog", description: "Colorado hot springs blog" },
+  body: "",
+};
+
+const allCategories: string[] = [];
+const categories: string[] = [];
+const tags: string[] = [];
 
 const entriesPerPage = 4;
 const indexOfLastEntry = currentPageIndex * entriesPerPage;

@@ -1,23 +1,17 @@
 ---
-import type { BlogEntry } from "@/types";
-import { sortByDate } from "@lib/sortFunctions";
+export const prerender = false;
 import EntryLayout from "@components/blog/EntryLayout.astro";
-import { getEntries } from "@lib/contentParser";
+import { getWollyBlogEntry, getWollyBlogEntries } from "@lib/wolly";
 import similerItems from "@lib/similarItems";
 
-export async function getStaticPaths() {
-  const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
-  const paths = entries.map((entry) => ({
-    params: {
-      entry: entry.id,
-    },
-    props: { entry, entries },
-  }));
-  return paths;
-}
+const { entry: slug } = Astro.params;
+if (!slug) return Astro.redirect("/blog");
 
-const { entry, entries } = Astro.props;
-const relatedEntries = similerItems(entry, entries, entry.id);
+const entry = await getWollyBlogEntry(slug);
+if (!entry) return Astro.redirect("/blog");
+
+const allEntries = await getWollyBlogEntries();
+const relatedEntries = similerItems(entry, allEntries, entry.id);
 ---
 
 <EntryLayout entry={entry} relatedEntries={relatedEntries} />
