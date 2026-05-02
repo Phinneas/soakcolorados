@@ -973,70 +973,6 @@ async function initMap() {
   updatePassportUI();
 
   // ─── Mobile touch gestures ────────────────────────────────────────────────
-  let touchStartY = 0;
-  let touchStartX = 0;
-  let currentSpringIndex = -1;
-
-  // Swipe down to close detail panel on mobile
-  const detailPanel = document.getElementById('spring-detail');
-  if (detailPanel) {
-    detailPanel.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    detailPanel.addEventListener('touchend', (e) => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const diff = touchEndY - touchStartY;
-      // Swipe down more than 80px → close
-      if (diff > 80) {
-        detailPanel.classList.add('hidden');
-      }
-    }, { passive: true });
-  }
-
-  // Swipe left/right to navigate between springs on mobile
-  const mapContainer = document.querySelector('.map-container');
-  if (mapContainer) {
-    mapContainer.addEventListener('touchstart', (e) => {
-      // Only track horizontal swipes that don't start on a UI element
-      if (e.target.closest('.style-switcher, .layer-controls, .directions-panel, .spring-detail, .passport-panel, .passport-toggle, .directions-toggle')) return;
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    mapContainer.addEventListener('touchend', (e) => {
-      if (touchStartX === 0) return;
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const diffX = touchEndX - touchStartX;
-      const diffY = touchEndY - touchStartY;
-
-      // Only trigger if horizontal swipe is dominant (2x vertical) and > 60px
-      if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY) * 2) {
-        if (diffX < 0) {
-          // Swipe left → next spring
-          navigateSpring(1);
-        } else {
-          // Swipe right → previous spring
-          navigateSpring(-1);
-        }
-      }
-      touchStartX = 0;
-      touchStartY = 0;
-    }, { passive: true });
-  }
-
-  function navigateSpring(direction) {
-    if (springs.length === 0) return;
-    if (currentSpringIndex === -1) {
-      currentSpringIndex = 0;
-    } else {
-      currentSpringIndex = (currentSpringIndex + direction + springs.length) % springs.length;
-    }
-    const spring = springs[currentSpringIndex];
-    openDetail(spring, map);
-  }
-
   // ─── Detail panel ────────────────────────────────────────────────────────────
   function openDetail(spring, map) {
     map.flyTo({ center: [spring.lng, spring.lat], zoom: 12, duration: 800 });
@@ -1135,10 +1071,10 @@ async function initMap() {
 
     try {
       const res = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${fromLng},${fromLat};${toLng},${toLat}?steps=true&overview=full&access_token=${mapboxToken}`
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${fromLng},${fromLat};${toLng},${toLat}?steps=true&geometries=geojson&overview=full&access_token=${mapboxToken}`
       );
 
-      if (!res.ok) throw new Error('Failed to fetch directions');
+      if (!res.ok) { const errBody = await res.text().catch(() => ''); throw new Error(`Directions API ${res.status}: ${errBody}`); }
 
       const data = await res.json();
       const route = data.routes[0];
@@ -1207,7 +1143,7 @@ async function initMap() {
 
     } catch (error) {
       console.error('Directions error:', error);
-      directionsContent.innerHTML = '<p class="error">Failed to get directions. Please try again.</p>';
+      directionsContent.innerHTML = `<p class="error">Failed to get directions: ${error.message || error}. Please try again.</p>`;
     }
   }
 

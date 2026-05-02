@@ -16,15 +16,34 @@ async function fetchAPI(path: string) {
   return res.json();
 }
 
+async function fetchAllBlogPages(): Promise<WollyPage[]> {
+  const allPages: WollyPage[] = [];
+  let offset = 0;
+  const limit = 50;
+  // WollyCMS content API caps at 50 per request; paginate to get all posts
+  while (true) {
+    const data = await fetchAPI(`/pages?type=blog&status=published&limit=${limit}&offset=${offset}`);
+    const pages: WollyPage[] = (data.data || []).filter(
+      (p: WollyPage) => p.fields?.site === SITE_SLUG
+    );
+    allPages.push(...pages);
+    const total = data.meta?.total || 0;
+    offset += limit;
+    if (offset >= total) break;
+  }
+  return allPages;
+}
+
 export async function getWollyBlogEntries() {
-  const data = await fetchAPI(`/pages?type=blog&site=${SITE_SLUG}&status=published&limit=200`);
-  const pages: WollyPage[] = data.data || [];
+  const pages = await fetchAllBlogPages();
   return pages.map(formatAsBlogEntry);
 }
 
 export async function getWollyBlogEntry(slug: string) {
-  const data = await fetchAPI(`/pages?slug=${slug}&site=${SITE_SLUG}&status=published`);
-  const pages: WollyPage[] = data.data || [];
+  const data = await fetchAPI(`/pages?slug=${slug}&status=published`);
+  const pages: WollyPage[] = (data.data || []).filter(
+    (p: WollyPage) => p.fields?.site === SITE_SLUG
+  );
   if (pages.length === 0) return null;
   return formatAsBlogEntry(pages[0]);
 }
