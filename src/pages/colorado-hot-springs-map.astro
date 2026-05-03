@@ -82,17 +82,6 @@ import { mapboxAccessToken } from '@/config/map';
         <button id="toggle-draw" class="layer-btn" title="Draw route annotations">✏ Draw</button>
       </div>
 
-      <!-- Directions panel -->
-      <div id="directions-panel" class="directions-panel hidden">
-        <button id="directions-close" class="directions-close" aria-label="Close">✕</button>
-        <div class="directions-header">
-          <h3>Driving Directions</h3>
-        </div>
-        <div id="directions-content"></div>
-      </div>
-
-      <button id="directions-btn" class="directions-toggle" title="Get directions">🧭</button>
-
       <!-- Spring detail panel -->
       <div id="spring-detail" class="spring-detail hidden">
         <button id="detail-close" class="detail-close" aria-label="Close">✕</button>
@@ -973,10 +962,23 @@ async function initMap() {
   updatePassportUI();
 
   // ─── Mobile touch gestures ────────────────────────────────────────────────
+  // ─── Panel close helpers ────────────────────────────────────────────────────
+  function closeDirectionsPanel() {
+    const panel = document.getElementById('directions-panel');
+    if (panel) panel.classList.add('hidden');
+    if (map.getLayer('route-line')) {
+      map.removeLayer('route-line');
+      map.removeSource('route-data');
+    }
+  }
+
   // ─── Detail panel ────────────────────────────────────────────────────────────
   function openDetail(spring, map) {
     map.flyTo({ center: [spring.lng, spring.lat], zoom: 12, duration: 800 });
     trackEvent('click', spring.slug);
+
+    // Close directions panel if open
+    closeDirectionsPanel();
 
     const detail = document.getElementById('spring-detail');
     const content = document.getElementById('detail-content');
@@ -1009,7 +1011,7 @@ async function initMap() {
           ${isVisited(spring.slug) ? '✓ Visited' : '✓ Mark Visited'}
         </button>
         ${spring.has_post !== false ? `<a href="/blog/${blogSlug}" class="btn-detail">Read full guide →</a>` : ''}
-        <button onclick="getDirectionsTo(${spring.lat}, ${spring.lng}, '${spring.name}')" class="btn-detail btn-secondary">Get Directions ↗</button>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=${spring.lat},${spring.lng}" target="_blank" rel="noopener noreferrer" class="btn-detail btn-secondary">Get Directions ↗</a>
       </div>
     `;
 
@@ -1040,6 +1042,12 @@ async function initMap() {
     // Track direction request
     const spring = springs.find(s => Math.abs(s.lat - lat) < 0.01 && Math.abs(s.lng - lng) < 0.01);
     if (spring) trackEvent('directions', spring.slug);
+
+    // On mobile, route directly to Google Maps
+    if (window.innerWidth <= 640) {
+      window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank');
+      return;
+    }
 
     // Close detail panel
     document.getElementById('spring-detail')?.classList.add('hidden');
@@ -1177,12 +1185,7 @@ async function initMap() {
   });
 
   document.getElementById('directions-close')?.addEventListener('click', () => {
-    document.getElementById('directions-panel')?.classList.add('hidden');
-    // Remove route layer if it exists
-    if (map.getLayer('route-line')) {
-      map.removeLayer('route-line');
-      map.removeSource('route-data');
-    }
+    closeDirectionsPanel();
   });
 
   document.getElementById('directions-btn')?.addEventListener('click', () => {
@@ -1200,6 +1203,23 @@ async function initMap() {
         alert(`Please select a spring first, or we'll use ${firstSpring.name} as an example.`);
         getDirectionsTo(firstSpring.lat, firstSpring.lng, firstSpring.name);
       }
+    }
+  });
+
+  // Close directions panel when clicking empty map space
+  map.on('click', (e) => {
+    const features = map.queryRenderedFeatures(e.point);
+    const isInteractive = features.some(f =>
+      f.layer.id === 'unclustered-point' ||
+      f.layer.id === 'clusters' ||
+      f.layer.id?.startsWith('gas-') ||
+      f.layer.id?.startsWith('poi-') ||
+      f.layer.id?.startsWith('ev-') ||
+      f.layer.id?.startsWith('aqi-') ||
+      f.layer.id?.startsWith('snow-')
+    );
+    if (!isInteractive) {
+      closeDirectionsPanel();
     }
   });
 
@@ -1844,7 +1864,7 @@ document.addEventListener('astro:page-load', () => {
     #map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
     .passport-toggle { top: 0.5rem; left: 0.5rem; padding: 0.4rem 0.6rem; font-size: 1rem; }
-    .directions-toggle { top: 2.5rem; left: 0.5rem; }
+    .directions-toggle { display: none; }
     .directions-panel { top: 0.5rem; right: 0.5rem; width: calc(100% - 1rem); }
 
     /* Sidebar sections hidden on mobile to save space */
