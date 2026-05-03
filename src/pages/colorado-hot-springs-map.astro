@@ -1297,6 +1297,10 @@ async function initMap() {
 }
 
 initMap();
+
+document.addEventListener('astro:page-load', () => {
+  initMap();
+});
 </script>
 
 <style>
@@ -1420,7 +1424,7 @@ initMap();
   /* Full-height layout */
   .map-page {
     display: flex;
-    height: calc(100vh - 60px); /* subtract header height */
+    height: calc(100dvh - 60px); /* subtract header height */
     overflow: hidden;
   }
 
@@ -1807,8 +1811,8 @@ initMap();
 
   /* Mobile */
   @media (max-width: 640px) {
-    .map-page { flex-direction: column; }
-    .map-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--color-border); overflow: hidden; }
+    .map-page { flex-direction: column; height: 100dvh; }
+    .map-sidebar { width: 100%; height: auto; max-height: 40vh; flex-shrink: 0; border-right: none; border-bottom: 1px solid var(--color-border); overflow: hidden; }
     .springs-list { display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: 0.5rem; gap: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
     .spring-list-item { min-width: 180px; scroll-snap-align: start; border: 1px solid var(--color-border); border-radius: 8px; flex-shrink: 0; }
 
@@ -1835,6 +1839,9 @@ initMap();
 
     .layer-controls { bottom: 0.5rem; right: 0.5rem; flex-wrap: wrap; gap: 0.3rem; }
     .layer-btn { height: 32px; font-size: 0.75rem; padding: 0 0.5rem; }
+
+    .map-container { flex: 1; min-height: 60dvh; position: relative; }
+    #map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
     .passport-toggle { top: 0.5rem; left: 0.5rem; padding: 0.4rem 0.6rem; font-size: 1rem; }
     .directions-toggle { top: 2.5rem; left: 0.5rem; }
