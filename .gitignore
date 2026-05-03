@@ -58,3 +58,5 @@ dist/
 
 # Wrangler output
 .wrangler/
+astrogon/
+soakcolorados/
