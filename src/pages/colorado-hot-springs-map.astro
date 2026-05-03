@@ -1011,7 +1011,7 @@ async function initMap() {
           ${isVisited(spring.slug) ? '✓ Visited' : '✓ Mark Visited'}
         </button>
         ${spring.has_post !== false ? `<a href="/blog/${blogSlug}" class="btn-detail">Read full guide →</a>` : ''}
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${spring.lat},${spring.lng}" target="_blank" rel="noopener noreferrer" class="btn-detail btn-secondary">Get Directions ↗</a>
+        <button onclick="getDirectionsTo(${spring.lat}, ${spring.lng}, '${spring.name}')" class="btn-detail btn-secondary">Get Directions ↗</button>
       </div>
     `;
 
