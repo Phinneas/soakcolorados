@@ -13,7 +13,7 @@ interface Props {
 const { taxon, entries }: Props = Astro.props;
 ---
 
-<BaseLayout title={upperHumanize(taxon)}>
+<BaseLayout title={upperHumanize(taxon)} noindex>
   <PageHeader title={taxon} />
   <section class="section-sm">
     <div class="pb-0">

@@ -13,7 +13,7 @@ interface Props {
 const { taxonomy, taxa, allTaxa }: Props = Astro.props;
 ---
 
-<BaseLayout title={upperHumanize(taxonomy)}>
+<BaseLayout title={upperHumanize(taxonomy)} noindex>
   <PageHeader title={upperHumanize(taxonomy)} />
   <section class="section">
     <div class="container text-center">

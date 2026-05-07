@@ -2,5 +2,12 @@ User-agent: *
 Allow: /
 
 Disallow: /api/*
+Disallow: /search
+Disallow: /authors/
+Disallow: /blog/tags/
+Disallow: /blog/categories/
+Disallow: /blog/page/
+Disallow: /*?ref=
+Disallow: /*?spring=
 
-Sitemap: https://www.janedoe.com/sitemap-index.xml
+Sitemap: https://www.soakcolorado.com/sitemap-index.xml

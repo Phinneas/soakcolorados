@@ -14,6 +14,7 @@ interface Props {
   allCategories: string[];
   pageIndex: number;
   pageCount: number;
+  noindex?: boolean;
 }
 
 const {
@@ -24,10 +25,11 @@ const {
   allCategories,
   pageIndex,
   pageCount,
+  noindex,
 } = Astro.props;
 ---
 
-<BaseLayout title={entryIndex.data.title} description={entryIndex.data.description}>
+<BaseLayout title={entryIndex.data.title} description={entryIndex.data.description} noindex={noindex}>
   <PageHeader title={entryIndex.data.title} />
   <section class="section">
     <div class="flex container">
