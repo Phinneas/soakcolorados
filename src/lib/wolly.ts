@@ -40,15 +40,23 @@ export async function getWollyBlogEntries() {
 }
 
 export async function getWollyBlogEntry(slug: string) {
-  const data = await fetchAPI(`/pages?slug=${slug}&status=published`);
-  const pages: WollyPage[] = (data.data || []).filter(
-    (p: WollyPage) => p.fields?.site === SITE_SLUG
-  );
-  if (pages.length === 0) return null;
-  return formatAsBlogEntry(pages[0]);
+  try {
+    const data = await fetchAPI(`/pages/${slug}`);
+    const page: WollyPage = data.data;
+    if (!page || page.status !== "published" || page.fields?.site !== SITE_SLUG) {
+      return null;
+    }
+    return formatAsBlogEntry(page);
+  } catch (err) {
+    return null;
+  }
 }
 
 function formatAsBlogEntry(page: WollyPage) {
+  const rawBody = page.fields.body || "";
+  const htmlBody = bodyToHtml(rawBody);
+  const headings = extractHeadingsFromHtml(htmlBody);
+
   return {
     id: page.slug,
     collection: "blog",
@@ -61,33 +69,72 @@ function formatAsBlogEntry(page: WollyPage) {
       tags: page.fields.tags || [],
       draft: page.status !== "published",
     },
-    body: page.fields.body || "",
+    body: typeof rawBody === "string" ? rawBody : JSON.stringify(rawBody),
+    htmlBody,
+    headings,
     slug: page.slug,
-    render() {
-      const body = page.fields.body || "";
-      return {
-        Content: {
-          render() {
-            return { html: body };
-          },
-        },
-        headings: extractHeadings(body),
-      };
-    },
   };
 }
 
-function extractHeadings(markdown: string) {
-  const headings: { depth: number; slug: string; text: string }[] = [];
-  const lines = markdown.split("\n");
-  for (const line of lines) {
-    const match = line.match(/^(#{1,3})\s+(.+)/);
-    if (match) {
-      const depth = match[1].length;
-      const text = match[2].replace(/[*_`#]/g, "").trim();
-      const slug = text.toLowerCase().replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
-      headings.push({ depth, slug, text });
+function bodyToHtml(body: any): string {
+  if (typeof body === "string") {
+    if (body.trimStart().startsWith("<")) return body;
+    return `<p>${body}</p>`;
+  }
+  if (typeof body === "object" && body !== null && body.type === "doc") {
+    return renderTipTap(body);
+  }
+  return String(body || "");
+}
+
+function renderTipTap(node: any): string {
+  if (!node || !node.type) return "";
+
+  if (node.type === "doc") {
+    return (node.content || []).map(renderTipTap).join("");
+  }
+
+  if (node.type === "paragraph") {
+    const text = (node.content || []).map(renderTipTap).join("");
+    return `<p>${text}</p>`;
+  }
+
+  if (node.type === "heading") {
+    const level = node.attrs?.level || 2;
+    const text = (node.content || []).map(renderTipTap).join("");
+    const slug = text.toLowerCase().replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
+    return `<h${level} id="${slug}">${text}</h${level}>`;
+  }
+
+  if (node.type === "text") {
+    let text = node.text || "";
+    if (node.marks) {
+      for (const mark of node.marks) {
+        if (mark.type === "bold") text = `<strong>${text}</strong>`;
+        if (mark.type === "italic") text = `<em>${text}</em>`;
+        if (mark.type === "code") text = `<code>${text}</code>`;
+        if (mark.type === "link") text = `<a href="${mark.attrs?.href || "#"}">${text}</a>`;
+      }
     }
+    return text;
+  }
+
+  if (node.content) {
+    return node.content.map(renderTipTap).join("");
+  }
+
+  return "";
+}
+
+function extractHeadingsFromHtml(html: string) {
+  const headings: { depth: number; slug: string; text: string }[] = [];
+  const regex = /<h([1-3])(?:\s+id="([^"]*)")?>([^<]*)<\/h[1-3]>/g;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    const depth = parseInt(match[1]);
+    const slug = match[2] || match[3].toLowerCase().replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
+    const text = match[3];
+    headings.push({ depth, slug, text });
   }
   return headings;
 }

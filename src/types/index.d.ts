@@ -5,7 +5,25 @@ export type GenericEntry = CollectionEntry<CollectionKey>;
 
 export type AboutEntry = CollectionEntry<"about">;
 export type AuthorsEntry = CollectionEntry<"authors">;
-export type BlogEntry = CollectionEntry<"blog">;
+export type BlogEntry = CollectionEntry<"blog"> | WollyBlogEntry;
+
+export type WollyBlogEntry = {
+  id: string;
+  collection: "blog";
+  data: {
+    title: string;
+    description: string;
+    date: string;
+    image?: { src: string };
+    categories: string[];
+    tags: string[];
+    draft: boolean;
+  };
+  body: string;
+  htmlBody: string;
+  headings: { depth: number; slug: string; text: string }[];
+  slug: string;
+};
 export type DocsEntry = CollectionEntry<"docs">;
 export type HomeEntry = CollectionEntry<"home">;
 export type IndexCardsEntry = CollectionEntry<"indexCards">;
@@ -25,6 +43,7 @@ export type SearchableEntry =
   | TermsEntry;
 
 export type SocialLinks = {
+  bluesky?: string;
   discord?: string;
   email?: string;
   facebook?: string;
