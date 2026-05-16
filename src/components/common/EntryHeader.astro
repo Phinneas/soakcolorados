@@ -20,7 +20,7 @@ import type { GenericEntry, EntryReference } from "@/types";
 
 interface EntryData {
   title: string;
-  image?: string;
+  image?: string | { src: string };
   imageAlt?: string;
   author?: EntryReference;
   date?: string;
@@ -79,14 +79,25 @@ tags?.sort((a: string, b: string) => a.localeCompare(b));
   {
     image && showImage && (
       <div class="mb-8 glass rounded-lg intersect:animate-fadeDown opacity-0 intersect-no-queue">
-        <Image
-          class="w-full rounded-lg"
-          src={image}
-          alt={imageAlt || ""}
-          height={500}
-          width={1200}
-          loading="eager"
-        />
+        {
+          (typeof image === 'string' && image.startsWith('http')) || (typeof image === 'object' && image.src && image.src.startsWith('http')) ? (
+            <img
+              class="w-full rounded-lg object-cover aspect-[12/5]"
+              src={typeof image === 'string' ? image : image.src}
+              alt={imageAlt || ""}
+              loading="eager"
+            />
+          ) : (
+            <Image
+              class="w-full rounded-lg"
+              src={typeof image === 'string' ? image : image.src}
+              alt={imageAlt || ""}
+              height={500}
+              width={1200}
+              loading="eager"
+            />
+          )
+        }
       </div>
     )
   }
