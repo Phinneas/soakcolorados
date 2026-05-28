@@ -69,6 +69,24 @@ const home = defineCollection({
           link: z.string().optional(),
         })
         .optional(),
+      navCards: z
+        .array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            link: z.string(),
+          })
+        )
+        .optional(),
+      proofHeading: z.string().optional(),
+      proofItems: z.array(z.string()).optional(),
+      proofSubtext: z.string().optional(),
+      proofButton: z
+        .object({
+          label: z.string(),
+          link: z.string().optional(),
+        })
+        .optional(),
     }),
 });
 
