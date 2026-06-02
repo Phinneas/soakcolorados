@@ -21,9 +21,9 @@ const { title, description, image, noindex, canonical } = Astro.props;
 
 const siteTitle = "Soak Colorado";
 const siteDescription = "Your guide to Colorado's best hot springs — natural pools, resort soaks, and hidden wilderness gems.";
-const siteImage = "@assets/og-image.png";
+const siteImage = "/og-image.png";
 const siteAuthor = "Soak Colorado";
-const baseUrl = "https://soakcolorados.com";
+const baseUrl = "https://soakcolorado.com";
 ---
 
 <!DOCTYPE html>
@@ -49,6 +49,9 @@ const baseUrl = "https://soakcolorados.com";
     />
     
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- google search console verification -->
+    <meta name="google-site-verification" content="aWniXi_3VjDN_XlGZmQeJ-5pWvF5ZDkN2VmzfQ1Av4o" />
 
     <meta name="theme-name" content="pages" />
     <meta name="msapplication-TileColor" content="#000000" />
@@ -107,6 +110,8 @@ const baseUrl = "https://soakcolorados.com";
       content={`${baseUrl}${image ? image : siteImage}`}
     />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <slot name="head" />
 
     <!-- https://docs.astro.build/en/guides/view-transitions -->
     <ClientRouter fallback="swap" />
