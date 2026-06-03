@@ -90,8 +90,35 @@ const home = defineCollection({
     }),
 });
 
+const about = defineCollection({
+  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/about" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      image: image().optional(),
+      imageAlt: z.string().default(""),
+      mission: z.string().optional(),
+      credentials: z
+        .array(
+          z.object({
+            label: z.string(),
+            value: z.string(),
+          })
+        )
+        .optional(),
+      methodologyHeading: z.string().optional(),
+      methodology: z.array(z.string()).optional(),
+      verificationHeading: z.string().optional(),
+      verification: z.array(z.string()).optional(),
+      disclosureHeading: z.string().optional(),
+      disclosure: z.array(z.string()).optional(),
+    }),
+});
+
 export const collections = {
   authors,
   blog,
   home,
+  about,
 };

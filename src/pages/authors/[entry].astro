@@ -21,7 +21,7 @@ const { title } = entry.data;
 const blogEntries = (await getEntries("blog", sortByDate)) as BlogEntry[];
 const filteredBlogEntries = blogEntries.filter(
   (entry: BlogEntry) =>
-    slugify(entry.data.author?.id ? entry.data.author.id : "Jane Doe") ===
+    slugify(entry.data.author?.id ? entry.data.author.id : "Soak Colorado") ===
     slugify(title)
 );
 ---

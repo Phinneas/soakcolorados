@@ -2,10 +2,14 @@
 import BaseLayout from "@components/base/BaseLayout.astro";
 import BlogCard from "@components/blog/Card.astro";
 import Share from "@components/common/Share.astro";
+import Breadcrumbs from "@components/common/Breadcrumbs.astro";
+import SchemaScript from "@components/schema/SchemaScript.astro";
 import { plainify } from "@lib/textConverter";
-import type { BlogEntry } from "@/types";
+import { buildArticleSchema, buildFaqSchema } from "@lib/schema";
+import type { BlogEntry, AuthorsEntry } from "@/types";
 import TableOfContents from "@components/common/TableOfContents.astro";
 import EntryHeader from "@components/common/EntryHeader.astro";
+import { getEntry } from "astro:content";
 interface Props {
   entry: BlogEntry;
   relatedEntries: BlogEntry[];
@@ -25,15 +29,30 @@ const actuallyHideToc = hideToc || globalHideToc || headings.filter((heading) =>
 const entryDescription =
   description ||
   (autodescription ? plainify(entry.body!.slice(0, descriptionLenth)) : null);
+
+const articleSchema = buildArticleSchema(entry, Astro.url.pathname);
+const faqSchema = htmlBody ? buildFaqSchema(htmlBody) : null;
+
+// Look up author entry; default to soak-colorado for WollyCMS posts without author ref
+const authorId = entry.data.author?.id || "soak-colorado";
+const authorEntry = authorId ? await getEntry("authors", authorId) : undefined;
 ---
 
 <BaseLayout title={title} description={entryDescription} image={image?.src}>
+  <Fragment slot="head">
+    <SchemaScript schema={articleSchema} />
+    {faqSchema && <SchemaScript schema={faqSchema} />}
+  </Fragment>
+
+  <Breadcrumbs className="mt-4 container" />
+
   <section class="flex container p-4">
     <div class=`w-full ${actuallyHideToc ? "" : "md:col-9"}`>
       <article class="">
         <section>
           <EntryHeader
             entry={entry}
+            authorEntry={authorEntry}
             showImage
             showAuthor
             showDate

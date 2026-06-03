@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
+import SchemaScript from "@components/schema/SchemaScript.astro";
 import { markdownify } from "@lib/textConverter";
+import { buildWebSiteSchema, buildOrganizationSchema, buildBreadcrumbSchema } from "@lib/schema";
 import Button from "@components/common/Button.astro";
 import type { HomeEntry } from "@/types";
 import { Image } from "astro:assets";
@@ -22,9 +24,19 @@ const {
   proofSubtext,
   proofButton,
 } = entry.data;
+
+const websiteSchema = buildWebSiteSchema();
+const organizationSchema = buildOrganizationSchema();
+const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
 ---
 
 <BaseLayout>
+  <Fragment slot="head">
+    <SchemaScript schema={websiteSchema} />
+    <SchemaScript schema={organizationSchema} />
+    <SchemaScript schema={breadcrumbSchema} />
+  </Fragment>
+
   <!-- Block 1: The Manifesto -->
   <section class="section">
     <div class="container">

@@ -1,12 +1,25 @@
 ---
 import BaseLayout from '@components/base/BaseLayout.astro';
+import SchemaScript from '@components/schema/SchemaScript.astro';
 import { mapboxAccessToken } from '@/config/map';
+import { buildItemListSchema, buildBreadcrumbSchema } from '@lib/schema';
+import springsData from '../../public/springs.json';
+
+const itemListSchema = buildItemListSchema(springsData);
+const breadcrumbSchema = buildBreadcrumbSchema([
+  { label: "Home", href: "/" },
+  { label: "Colorado Hot Springs Map", href: "/colorado-hot-springs-map" },
+]);
 ---
 
 <BaseLayout
   title="Colorado Hot Springs Map"
   description="Interactive map of all hot springs in Colorado with conditions, access info, and trip planning."
 >
+  <Fragment slot="head">
+    <SchemaScript schema={itemListSchema} />
+    <SchemaScript schema={breadcrumbSchema} />
+  </Fragment>
   <div class="map-page" data-mapbox-token={mapboxAccessToken}>
     <aside class="map-sidebar">
       <div class="sidebar-header">

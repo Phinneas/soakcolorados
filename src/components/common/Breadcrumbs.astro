@@ -1,5 +1,7 @@
 ---
 import { lowerHumanize } from "@lib/textConverter";
+import { buildBreadcrumbSchema } from "@lib/schema";
+import SchemaScript from "@components/schema/SchemaScript.astro";
 
 const { className }: { className?: string } = Astro.props;
 
@@ -21,7 +23,11 @@ paths.forEach((label: string, i: number) => {
       "aria-label": Astro.url.pathname === href ? "page" : undefined,
     });
 });
+
+const breadcrumbSchema = buildBreadcrumbSchema(parts);
 ---
+
+<SchemaScript schema={breadcrumbSchema} />
 
 <nav aria-label="Breadcrumb" class={className}>
   <ol class="inline-flex" role="list">

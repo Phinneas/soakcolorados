@@ -1,5 +1,5 @@
 const CMS_API_URL = import.meta.env.CMS_API_URL || "https://wollycms.buzzuw2.workers.dev/api/content";
-const SITE_SLUG = "soakcolorados";
+const SITE_SLUG = "soakcolorado";
 
 interface WollyPage {
   id: number;
