@@ -1,4 +1,4 @@
 ---
-title: Blog
-description: Your guide to Colorado's best hot springs — visitor tips, directions, and soaking advice.
+title: "Colorado Hot Springs Guides & Trip Reports"
+description: "In-depth field guides to every Colorado hot spring — from free wilderness pools to luxury resorts. Real conditions, temps, and booking realities."
 ---

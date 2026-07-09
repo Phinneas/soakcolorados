@@ -1,24 +1,34 @@
 ---
-export const prerender = false;
+import { getIndex, getEntries } from "@lib/contentParser";
+import { getTaxaMultiset, getTaxa } from "@lib/taxonomyParser";
+import { sortByDate } from "@lib/sortFunctions";
 import CollectionLayout from "@components/blog/CollectionLayout.astro";
-import { getWollyBlogEntries } from "@lib/wolly";
 import type { BlogEntry } from "@/types";
+
+export async function getStaticPaths() {
+  const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
+  const pageCount = Math.ceil(entries.length / 4);
+  const paths = [];
+
+  for (let i = 1; i < pageCount; i++) {
+    paths.push({
+      params: {
+        slug: (i + 1).toString(),
+      },
+    });
+  }
+  return paths;
+}
 
 const { slug } = Astro.params;
 const currentPageIndex = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
 
-const entries = await getWollyBlogEntries();
+const entryIndex = (await getIndex("blog")) as BlogEntry;
+const entries = (await getEntries("blog", sortByDate)) as BlogEntry[];
 
-const entryIndex = {
-  id: "-index",
-  collection: "blog",
-  data: { title: "Blog", description: "Colorado hot springs blog" },
-  body: "",
-};
-
-const allCategories: string[] = [];
-const categories: string[] = [];
-const tags: string[] = [];
+const allCategories = await getTaxaMultiset("blog", "categories");
+const categories = await getTaxa("blog", "categories");
+const tags = await getTaxa("blog", "tags");
 
 const entriesPerPage = 4;
 const indexOfLastEntry = currentPageIndex * entriesPerPage;
