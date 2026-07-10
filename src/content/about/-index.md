@@ -11,5 +11,5 @@ verification:
   - "I don't run sponsored posts or take free stays for coverage. If a spring isn't worth the drive, I'll say so."
 disclosureHeading: "About"
 disclosure:
-  - "Soak Colorado is a product of Salish Sea Consulting LLC."
+  - "Soak Colorado is a product of [Salish Sea Consulting LLC](https://www.salishseaconsulting.com)."
 ---
