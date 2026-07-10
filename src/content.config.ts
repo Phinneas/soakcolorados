@@ -123,14 +123,6 @@ const about = defineCollection({
       image: image().optional(),
       imageAlt: z.string().default(""),
       mission: z.string().optional(),
-      credentials: z
-        .array(
-          z.object({
-            label: z.string(),
-            value: z.string(),
-          })
-        )
-        .optional(),
       methodologyHeading: z.string().optional(),
       methodology: z.array(z.string()).optional(),
       verificationHeading: z.string().optional(),

@@ -12,7 +12,6 @@ const {
   title,
   description,
   mission,
-  credentials,
   methodologyHeading,
   methodology,
   verificationHeading,
@@ -36,26 +35,6 @@ const {
               </p>
             )}
           </div>
-
-          <!-- Credentials -->
-          {credentials && credentials.length > 0 && (
-            <div class="glass rounded-lg p-8 mb-8">
-              <h2 class="h3 mb-6 text-txt-p dark:text-darkmode-txt-p">Who Writes the Guides</h2>
-              <div class="space-y-4">
-                {credentials.map((cred) => (
-                  <div class="flex items-start gap-4">
-                    <span class="text-accent text-xl leading-none mt-1">✦</span>
-                    <div>
-                      <h3 class="font-primary font-bold text-txt-p dark:text-darkmode-txt-p mb-1">
-                        {cred.label}
-                      </h3>
-                      <p class="text-txt-s dark:text-darkmode-txt-s m-0">{cred.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           <!-- Methodology -->
           {methodology && methodology.length > 0 && (
