@@ -9,16 +9,6 @@ content: |
 button:
   label: Explore the Map →
   link: /colorado-hot-springs-map
-navCards:
-  - title: Soak Wild
-    description: Natural pools, gravel roads, no entry fee.
-    link: /blog/tag/wild
-  - title: Soak Comfort
-    description: Day passes, cabins, temperature control.
-    link: /blog/tag/comfort
-  - title: Soak Free
-    description: Zero-cost soaks across the state.
-    link: /blog/tag/free
 proofHeading: What you get in every guide
 proofItems:
   - "**Real GPS & road intel** — gravel road warnings, 4WD requirements, where cell service dies"
