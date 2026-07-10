@@ -1,12 +1,6 @@
 ---
-const config = {
-  productName: "Soak Colorado",
-  url: "https://www.soakcolorado.com",
-  useCase: "plan a Colorado hot springs trip with real conditions, temps, and booking realities",
-  alternatives: ["TripAdvisor", "Uncover Colorado"],
-  heading: "Not sure yet?",
-  subtext: "Ask an AI for a second opinion on which hot springs fit your trip.",
-};
+const prompt = "How would Soak Colorado at https://www.soakcolorado.com help me plan a Colorado hot springs trip with real conditions, temps, and booking realities, and what makes it different from TripAdvisor or Uncover Colorado? Be honest about who it's best for and where it falls short.";
+const encoded = encodeURIComponent(prompt);
 ---
 
 <style>
@@ -126,12 +120,12 @@ const config = {
 
 <section class="ask-ai-section" aria-label="Ask AI about Soak Colorado">
   <div class="ask-ai-header">
-    <h3>{config.heading}</h3>
-    <p>{config.subtext}</p>
+    <h3>Not sure yet?</h3>
+    <p>Ask an AI for a second opinion on which hot springs fit your trip.</p>
   </div>
   <div class="ask-ai-grid">
     <a
-      href="#"
+      href={`https://chatgpt.com/?q=${encoded}`}
       class="ask-ai-btn"
       data-ai-platform="chatgpt"
       aria-label="Ask ChatGPT about Soak Colorado"
@@ -142,7 +136,7 @@ const config = {
       ChatGPT
     </a>
     <a
-      href="#"
+      href={`https://claude.ai/new?q=${encoded}`}
       class="ask-ai-btn"
       data-ai-platform="claude"
       aria-label="Ask Claude about Soak Colorado"
@@ -153,7 +147,7 @@ const config = {
       Claude
     </a>
     <a
-      href="#"
+      href={`https://www.perplexity.ai/?q=${encoded}`}
       class="ask-ai-btn"
       data-ai-platform="perplexity"
       aria-label="Ask Perplexity about Soak Colorado"
@@ -164,7 +158,7 @@ const config = {
       Perplexity
     </a>
     <a
-      href="#"
+      href={`https://grok.com/?q=${encoded}`}
       class="ask-ai-btn"
       data-ai-platform="grok"
       aria-label="Ask Grok about Soak Colorado"
@@ -176,40 +170,3 @@ const config = {
     </a>
   </div>
 </section>
-
-<script is:inline define:vars={config}>
-  document.addEventListener("DOMContentLoaded", function () {
-    const prompt =
-      "How would " + config.productName + " at " + config.url +
-      " help me " + config.useCase +
-      ", and what makes it different from " + config.alternatives.join(" or ") +
-      "? Be honest about who it's best for and where it falls short.";
-
-    const encoded = encodeURIComponent(prompt);
-
-    const urls = {
-      chatgpt: "https://chatgpt.com/?q=" + encoded,
-      claude: "https://claude.ai/new?q=" + encoded,
-      perplexity: "https://www.perplexity.ai/?q=" + encoded,
-      grok: "https://grok.com/?q=" + encoded,
-    };
-
-    document.querySelectorAll("[data-ai-platform]").forEach(function (btn) {
-      var platform = btn.getAttribute("data-ai-platform");
-      if (urls[platform]) {
-        btn.href = urls[platform];
-
-        btn.addEventListener("click", function () {
-          console.log("[AskAI] Click:", platform, prompt);
-
-          if (typeof gtag === "function") {
-            gtag("event", "ask_ai_click", {
-              platform: platform,
-              prompt_length: prompt.length,
-            });
-          }
-        });
-      }
-    });
-  });
-</script>
