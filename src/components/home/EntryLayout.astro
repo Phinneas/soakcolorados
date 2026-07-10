@@ -24,6 +24,13 @@ const {
   proofItems,
   proofSubtext,
   proofButton,
+  tripHeading,
+  tripSubtext,
+  tripExample,
+  tripButton,
+  coverageHeading,
+  coverageText,
+  coverageButton,
 } = entry.data;
 
 const websiteSchema = buildWebSiteSchema();
@@ -153,7 +160,79 @@ const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
     )
   }
 
-  <!-- Block 4: Ask AI -->
+  <!-- Block 4: Plan a Weekend -->
+  {
+    tripHeading && tripExample && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row justify-center">
+            <div class="lg:col-8">
+              <div class="glass rounded-lg p-8">
+                <h2 class="font-primary font-bold text-2xl mb-2 text-txt-p dark:text-darkmode-txt-p">
+                  {tripHeading}
+                </h2>
+                {tripSubtext && (
+                  <p class="text-txt-s dark:text-darkmode-txt-s mb-6">{tripSubtext}</p>
+                )}
+                <div class="space-y-4">
+                  {tripExample.map((day) => (
+                    <div class="flex gap-3">
+                      <span class="text-accent font-bold text-lg leading-none mt-1">{day.day}</span>
+                      <span set:html={markdownify(day.description)} class="text-txt-s dark:text-darkmode-txt-s" />
+                    </div>
+                  ))}
+                </div>
+                {
+                  tripButton && (
+                    <div class="mt-6">
+                      <Button
+                        label={tripButton.label}
+                        link={tripButton.link}
+                        hoverInvert
+                        color=""
+                      />
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Block 5: Coverage -->
+  {
+    coverageHeading && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row justify-center">
+            <div class="lg:col-8 text-center">
+              <h2 class="font-primary font-bold text-2xl mb-4 text-txt-p dark:text-darkmode-txt-p">
+                {coverageHeading}
+              </h2>
+              {coverageText && (
+                <p class="text-txt-s dark:text-darkmode-txt-s mb-6 max-w-prose mx-auto">{coverageText}</p>
+              )}
+              {
+                coverageButton && (
+                  <Button
+                    label={coverageButton.label}
+                    link={coverageButton.link}
+                    hoverInvert
+                    color=""
+                  />
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Block 6: Ask AI -->
   <section class="section pt-0">
     <div class="container">
       <div class="row justify-center">
