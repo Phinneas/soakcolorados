@@ -4,6 +4,7 @@ import SchemaScript from "@components/schema/SchemaScript.astro";
 import { markdownify } from "@lib/textConverter";
 import { buildWebSiteSchema, buildOrganizationSchema, buildBreadcrumbSchema } from "@lib/schema";
 import Button from "@components/common/Button.astro";
+import AskAI from "@components/common/AskAI.astro";
 import type { HomeEntry } from "@/types";
 import { Image } from "astro:assets";
 
@@ -151,4 +152,15 @@ const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
       </section>
     )
   }
+
+  <!-- Block 4: Ask AI -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <AskAI />
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
