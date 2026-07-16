@@ -39,6 +39,12 @@ export type SocialLinks = {
   threads?: string;
 }
 
+export type ShareLinks = {
+  bluesky?: boolean;
+  threads?: boolean;
+  facebook?: boolean;
+}
+
 export type EntryReference = {
   id: string;
   collection: string;

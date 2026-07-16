@@ -17,9 +17,15 @@ import { SiBluesky, SiThreads } from "react-icons/si";
 
 interface Props {
   links?: SocialLinks;
+  shares?: {
+    bluesky?: boolean;
+    threads?: boolean;
+    facebook?: boolean;
+  };
 }
 
-const { links } = Astro.props;
+const { links, shares } = Astro.props;
+const pageUrl = Astro.url.toString();
 
 const liClass = "inline-block px-1 intersect:animate-fade opacity-0";
 const iconClass =
@@ -194,6 +200,48 @@ const iconClass =
           >
             <span class="sr-only">Threads</span>
             <SiThreads className="w-6 h-6" />
+          </a>
+        </li>
+      )}
+      {shares?.bluesky && (
+        <li class={liClass}>
+          <a
+            class={iconClass}
+            aria-label="Share on Bluesky"
+            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            <span class="sr-only">Share on Bluesky</span>
+            <SiBluesky className="w-6 h-6" />
+          </a>
+        </li>
+      )}
+      {shares?.threads && (
+        <li class={liClass}>
+          <a
+            class={iconClass}
+            aria-label="Share on Threads"
+            href={`https://www.threads.com/intent/post?url=${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            <span class="sr-only">Share on Threads</span>
+            <SiThreads className="w-6 h-6" />
+          </a>
+        </li>
+      )}
+      {shares?.facebook && (
+        <li class={liClass}>
+          <a
+            class={iconClass}
+            aria-label="Share on Facebook"
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            <span class="sr-only">Share on Facebook</span>
+            <FaFacebook className="w-6 h-6" />
           </a>
         </li>
       )}
