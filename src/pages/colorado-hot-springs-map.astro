@@ -193,7 +193,7 @@ async function initMap() {
   const map = new mapboxgl.Map({
     container: 'map',
     style: mapStyles.satellite,
-    center: [-106.0, 39.0],
+    center: [-105.5, 37.0],
     zoom: 7,
     accessToken: mapboxToken
   });
@@ -1024,7 +1024,7 @@ async function initMap() {
           ${isVisited(spring.slug) ? '✓ Visited' : '✓ Mark Visited'}
         </button>
         ${spring.has_post !== false ? `<a href="/blog/${blogSlug}" class="btn-detail">Read full guide →</a>` : ''}
-        <button onclick="getDirectionsTo(${spring.lat}, ${spring.lng}, '${spring.name}')" class="btn-detail btn-secondary">Get Directions ↗</button>
+        <button onclick="getDirectionsTo(${spring.lat}, ${spring.lng}, '${spring.slug}')" class="btn-detail btn-secondary">Get Directions ↗</button>
       </div>
     `;
 
