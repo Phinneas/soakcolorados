@@ -650,20 +650,8 @@ async function initMap() {
     }, 'clusters'); // below cluster layer so springs stay visible
   });
 
-  // Snow / radar overlay (RainViewer API)
-  async function loadRadarTiles() {
-    try {
-      const res = await fetch('https://api.rainviewer.com/public/weather-maps.json');
-      const data = await res.json();
-      const latest = data.radar.past[data.radar.past.length - 1];
-      return `https://tilecache.rainviewer.com${latest.path}/256/{z}/{x}/{y}/4/1_0.png`;
-    } catch (e) {
-      console.error('RainViewer API error:', e);
-      return null;
-    }
-  }
-
-  document.getElementById('toggle-snow').addEventListener('click', async (e) => {
+  // Snow depth overlay (NOAA NOHRSC Snow Analysis)
+  document.getElementById('toggle-snow').addEventListener('click', (e) => {
     const btn = e.currentTarget;
     activeLayers.snow = !activeLayers.snow;
     btn.classList.toggle('active', activeLayers.snow);
@@ -676,25 +664,19 @@ async function initMap() {
 
     if (map.getSource('snow-source')) return;
 
-    const tileUrl = await loadRadarTiles();
-    if (!tileUrl) {
-      activeLayers.snow = false;
-      btn.classList.remove('active');
-      alert('Failed to load radar data. Please try again.');
-      return;
-    }
-
     map.addSource('snow-source', {
       type: 'raster',
-      tiles: [tileUrl],
+      tiles: [
+        'https://mapservices.weather.noaa.gov/raster/rest/services/snow/NOHRSC_Snow_Analysis/MapServer/export?bbox={bbox-epsg-3857}&bboxSR=3857&size=256,256&format=png&transparent=true&f=image&layers=show:0'
+      ],
       tileSize: 256,
-      attribution: 'RainViewer'
+      attribution: 'NOAA NOHRSC Snow Analysis'
     });
     map.addLayer({
       id: 'snow-layer',
       type: 'raster',
       source: 'snow-source',
-      paint: { 'raster-opacity': 0.4 }
+      paint: { 'raster-opacity': 0.6 }
     }, 'clusters');
   });
 
